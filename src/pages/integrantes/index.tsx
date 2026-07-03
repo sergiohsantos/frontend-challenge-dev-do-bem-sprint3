@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 const member = {
   name: "Sérgio Henrique Santos",
   rm: "RM567254",
-  turma: "1TDS Agosto",
+  turma: "1TDSPS",
   role: "Arquitetura, desenvolvimento e sustentação do projeto",
   linkedinUrl: "https://www.linkedin.com/in/sergiohenriquessantos/",
   githubUrl: "https://github.com/sergiohsantos",
@@ -96,7 +96,7 @@ export default function IntegrantesPage() {
           <div className="container relative mx-auto grid gap-10 px-4 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
               <Badge className="mb-5 rounded-full bg-primary-foreground/10 px-4 py-1.5 text-primary-foreground hover:bg-primary-foreground/10">
-                Projeto individual
+                Responsável técnico
               </Badge>
               <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
                 Uma entrega sustentada por arquitetura, execução e responsabilidade técnica.
@@ -158,19 +158,21 @@ export default function IntegrantesPage() {
 
             <div className="grid gap-4 sm:grid-cols-2">
               {areas.map((area) => (
-                <Card key={area.label} className="group relative border-border/80 transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-lg hover:shadow-primary/10">
-                  <CardContent className="flex items-start gap-3 p-5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                      <area.icon className="h-5 w-5" />
+                <Card key={area.label} title={area.description} className="group border-border/80 transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-lg hover:shadow-primary/10 focus-within:border-primary/25">
+                  <CardContent className="p-5">
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground group-focus-within:bg-primary group-focus-within:text-primary-foreground">
+                        <area.icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <span className="font-semibold text-foreground">{area.label}</span>
+                        <p className="mt-1 text-xs leading-5 text-muted-foreground">{area.short}</p>
+                      </div>
                     </div>
-                    <div>
-                      <span className="font-semibold text-foreground">{area.label}</span>
-                      <p className="mt-1 text-xs leading-5 text-muted-foreground">{area.short}</p>
+                    <div className="mt-0 max-h-0 overflow-hidden rounded-2xl border border-transparent bg-muted/40 px-4 text-sm leading-6 text-muted-foreground opacity-0 transition-all duration-300 group-hover:mt-4 group-hover:max-h-40 group-hover:border-border group-hover:py-3 group-hover:opacity-100 group-focus-within:mt-4 group-focus-within:max-h-40 group-focus-within:border-border group-focus-within:py-3 group-focus-within:opacity-100">
+                      {area.description}
                     </div>
                   </CardContent>
-                  <div className="pointer-events-none absolute left-4 right-4 top-full z-20 mt-2 translate-y-1 rounded-2xl border border-border bg-popover p-4 text-sm leading-6 text-popover-foreground opacity-0 shadow-xl transition-all group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                    {area.description}
-                  </div>
                 </Card>
               ))}
             </div>
