@@ -1,75 +1,56 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react"
-import { ptBR, type Translations } from "./locales/pt-BR"
-import { en } from "./locales/en"
+import type { ReactNode } from "react"
 
-type Locale = "pt-BR" | "en"
-
-interface I18nContextType {
-  locale: Locale
-  setLocale: (locale: Locale) => void
-  t: Translations
+const text = {
+  header: {
+    logoAlt: "Turma do Bem - Pelo direito de sorrir",
+    tagline: "Pelo direito de sorrir",
+  },
+  common: {
+    loading: "Carregando...",
+    back: "Voltar",
+    help: "Precisa de ajuda",
+  },
+  nav: {
+    beneficiary: "Beneficiário",
+    volunteer: "Voluntário",
+    login: "Entrar",
+  },
+  login: {
+    welcomeBack: "Bem-vindo de volta",
+    subtitle: "Entre para acompanhar sua jornada na Turma do Bem.",
+    title: "Entrar",
+    selectProfile: "Selecione seu perfil para acessar a plataforma.",
+    noAccount: "Ainda não tem acesso?",
+    beneficiaryProfile: "Cadastro beneficiário",
+    volunteerProfile: "Cadastro voluntário",
+  },
+  forms: {
+    cpf: "CPF",
+    email: "E-mail",
+    password: "Senha",
+    forgotPassword: "Esqueci minha senha",
+    requiredField: "Campo obrigatório",
+    invalidEmail: "Informe um e-mail válido",
+  },
 }
 
-const locales: Record<Locale, Translations> = {
-  "pt-BR": ptBR,
-  "en": en,
+type Locale = "pt-BR"
+type Translations = typeof text
+
+function setLocale() {
+  return undefined
 }
 
-const I18nContext = createContext<I18nContextType | undefined>(undefined)
-
-const STORAGE_KEY = "tdb-locale"
-
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("pt-BR")
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-    const stored = localStorage.getItem(STORAGE_KEY) as Locale | null
-    if (stored && locales[stored]) {
-      setLocaleState(stored)
-      document.documentElement.lang = stored
-    }
-  }, [])
-
-  const setLocale = useCallback((newLocale: Locale) => {
-    setLocaleState(newLocale)
-    localStorage.setItem(STORAGE_KEY, newLocale)
-    document.documentElement.lang = newLocale
-  }, [])
-
-  const value: I18nContextType = {
-    locale,
-    setLocale,
-    t: locales[locale],
-  }
-
-  if (!mounted) {
-    return (
-      <I18nContext.Provider value={{ locale: "pt-BR", setLocale: () => {}, t: ptBR }}>
-        {children}
-      </I18nContext.Provider>
-    )
-  }
-
-  return (
-    <I18nContext.Provider value={value}>
-      {children}
-    </I18nContext.Provider>
-  )
+export function I18nProvider({ children }: { children: ReactNode }) {
+  return <>{children}</>
 }
 
 export function useI18n() {
-  const context = useContext(I18nContext)
-  if (!context) {
-    throw new Error("useI18n must be used within an I18nProvider")
-  }
-  return context
+  return { locale: "pt-BR" as Locale, setLocale, t: text }
 }
 
 export function useTranslation() {
-  const { t } = useI18n()
-  return { t }
+  return { t: text }
 }
 
-export { type Locale, type Translations }
+export type { Locale, Translations }
