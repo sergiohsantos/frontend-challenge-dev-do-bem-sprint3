@@ -1,70 +1,28 @@
 import { Quote } from "lucide-react"
-import { useTranslation } from "@/lib/i18n"
+
+const testimonials = [
+  { id: 1, quote: "A plataforma me ajuda a entender o que acontece no atendimento e qual é o próximo passo.", author: "Beneficiário", role: "Jornada de cuidado", location: "São Paulo, SP" },
+  { id: 2, quote: "Ter mensagens, confirmação e histórico em um só lugar reduz ruído e facilita a atuação voluntária.", author: "Voluntário", role: "Rede de atendimento", location: "Brasil" },
+  { id: 3, quote: "A visão integrada apoia decisões melhores e dá mais segurança para acompanhar cada caso.", author: "Equipe TDB", role: "Gestão operacional", location: "Administração" },
+]
 
 export function TestimonialsSection() {
-  const { t } = useTranslation()
-  
-  const testimonials = [
-    {
-      id: 1,
-      quote: t.home.testimonials.items.maria.quote,
-      author: t.home.testimonials.items.maria.author,
-      role: t.home.testimonials.items.maria.role,
-      location: "São Paulo, SP",
-    },
-    {
-      id: 2,
-      quote: t.home.testimonials.items.ana.quote,
-      author: t.home.testimonials.items.ana.author,
-      role: t.home.testimonials.items.ana.role,
-      location: "Rio de Janeiro, RJ",
-    },
-    {
-      id: 3,
-      quote: t.home.testimonials.items.francisca.quote,
-      author: t.home.testimonials.items.francisca.author,
-      role: t.home.testimonials.items.francisca.role,
-      location: "Salvador, BA",
-    },
-  ]
-
   return (
-    <section className="bg-secondary py-12 sm:py-16 lg:py-24" aria-labelledby="testimonials-heading">
+    <section className="bg-secondary/30 py-12 sm:py-16 lg:py-24" aria-labelledby="testimonials-heading">
       <div className="container mx-auto px-4">
-        <div className="text-center">
-          <h2 
-            id="testimonials-heading"
-            className="text-xl font-bold text-foreground sm:text-2xl md:text-3xl lg:text-4xl"
-          >
-            {t.home.testimonials.title}
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:mt-4 sm:text-lg">
-            {t.home.testimonials.subtitle}
-          </p>
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="text-sm font-bold uppercase tracking-[0.25em] text-primary">Experiência</span>
+          <h2 id="testimonials-heading" className="mt-3 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">Menos ruído, mais cuidado acompanhado.</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">A comunicação foi pensada para ser simples, direta e útil para quem recebe, executa e administra o atendimento.</p>
         </div>
-
-        <div className="mt-8 grid gap-4 sm:mt-12 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <blockquote 
-              key={testimonial.id}
-              className="flex flex-col rounded-xl border border-border bg-card p-4 sm:rounded-2xl sm:p-6"
-            >
-              <Quote className="h-6 w-6 text-primary/30 sm:h-8 sm:w-8" aria-hidden="true" />
-              
-              <p className="mt-3 flex-1 text-base text-foreground leading-relaxed sm:mt-4 sm:text-lg">
-                &ldquo;{testimonial.quote}&rdquo;
-              </p>
-
-              <footer className="mt-4 flex items-center gap-3 border-t border-border pt-4 sm:mt-6 sm:gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-base font-bold text-primary sm:h-12 sm:w-12 sm:text-lg">
-                  {testimonial.author.charAt(0)}
-                </div>
-                <div className="min-w-0">
-                  <p className="truncate font-semibold text-foreground">{testimonial.author}</p>
-                  <p className="truncate text-xs text-muted-foreground sm:text-sm">
-                    {testimonial.role} • {testimonial.location}
-                  </p>
-                </div>
+            <blockquote key={testimonial.id} className="flex flex-col rounded-3xl border border-border/70 bg-card p-6 shadow-md shadow-primary/5">
+              <Quote className="h-8 w-8 text-accent" aria-hidden="true" />
+              <p className="mt-4 flex-1 text-base leading-7 text-foreground">“{testimonial.quote}”</p>
+              <footer className="mt-6 flex items-center gap-3 border-t border-border pt-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-base font-bold text-primary">{testimonial.author.charAt(0)}</div>
+                <div className="min-w-0"><p className="truncate font-semibold text-foreground">{testimonial.author}</p><p className="truncate text-xs text-muted-foreground sm:text-sm">{testimonial.role} • {testimonial.location}</p></div>
               </footer>
             </blockquote>
           ))}
