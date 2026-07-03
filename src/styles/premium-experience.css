@@ -108,30 +108,111 @@ body {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 18px 40px rgba(0,0,0,0.12);
 }
 
+/* Logged area width alignment.
+   The volunteer home used max-w-7xl while subpages used a wider container.
+   This keeps all logged screens visually consistent without changing React logic. */
+main > .container.max-w-7xl {
+  max-width: 1536px;
+}
+
+.flex.min-h-screen.flex-col.bg-background > main > .container,
+.flex.min-h-screen.flex-col.bg-secondary > main > .container {
+  max-width: 1536px;
+}
+
 /* Conservative polish for legacy logged pages such as the volunteer agenda.
    This keeps existing React logic intact and only improves hierarchy, spacing and touch feel. */
+.bg-secondary {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(91, 191, 186, 0.14), transparent 28rem),
+    radial-gradient(circle at 92% 8%, rgba(245, 132, 31, 0.10), transparent 26rem),
+    hsl(var(--background));
+}
+
 .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border-radius: 2rem;
-  padding: 1.5rem;
-  border: 1px solid hsl(var(--primary) / 0.12);
+  min-height: 19rem;
+  align-items: center;
+  border-radius: 2.5rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: hsl(var(--primary-foreground));
   background:
-    radial-gradient(circle at top left, rgba(91, 191, 186, 0.22), transparent 18rem),
-    radial-gradient(circle at 90% 10%, rgba(245, 132, 31, 0.14), transparent 18rem),
-    linear-gradient(135deg, hsl(var(--card)), hsl(var(--secondary) / 0.55));
-  box-shadow: 0 24px 64px rgba(16, 40, 66, 0.10);
+    radial-gradient(circle at 0% 0%, rgba(91, 191, 186, 0.55), transparent 19rem),
+    radial-gradient(circle at 92% 55%, rgba(245, 132, 31, 0.45), transparent 17rem),
+    linear-gradient(135deg, hsl(var(--primary)), #0a3a62 64%, #17364f);
+  box-shadow: 0 30px 72px rgba(16, 40, 66, 0.18);
+}
+
+.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black 0%, transparent 82%);
+}
+
+.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  right: 2.5rem;
+  bottom: -4rem;
+  width: 21rem;
+  height: 21rem;
+  border-radius: 9999px;
+  background: rgba(245, 132, 31, 0.38);
+  filter: blur(48px);
+  opacity: 0.85;
 }
 
 .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 h1 {
+  max-width: 44rem;
+  color: hsl(var(--primary-foreground));
+  font-size: clamp(2.25rem, 4vw, 4.2rem);
   font-weight: 900;
-  letter-spacing: -0.035em;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
 }
 
 .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 p {
   max-width: 42rem;
-  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 a,
+.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 button {
+  position: relative;
+  z-index: 1;
+}
+
+.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child a {
+  height: 3.5rem;
+  padding-inline: 1.5rem;
+  border-radius: 9999px;
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  font-weight: 900;
+  box-shadow: 0 18px 44px rgba(245, 132, 31, 0.25);
+}
+
+.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child a:hover {
+  background: hsl(var(--accent) / 0.92);
+}
+
+.bg-secondary main > .container > .mb-4,
+.bg-secondary main > .container > nav,
+.bg-secondary main > .container > [aria-label="breadcrumb"] {
+  display: none;
 }
 
 .bg-secondary main > .container > .mb-6,
@@ -139,10 +220,16 @@ body {
 .bg-secondary main > .container .grid.gap-6 > .overflow-hidden,
 .bg-secondary main > .container .grid.gap-6 > .rounded-2xl,
 .bg-secondary main > .container .space-y-6 > .rounded-2xl,
-.bg-secondary main > .container .space-y-6 > .border {
-  border-radius: 1.5rem;
+.bg-secondary main > .container .space-y-6 > .border,
+.bg-secondary main > .container .rounded-lg.border.bg-card.shadow-sm {
+  border-radius: 2rem;
   border-color: hsl(var(--border) / 0.75);
   box-shadow: 0 18px 52px rgba(16, 40, 66, 0.08);
+}
+
+.bg-secondary main > .container > .mb-6 {
+  border: 1px solid hsl(var(--border) / 0.75);
+  background: hsl(var(--card));
 }
 
 .bg-secondary main > .container button,
@@ -151,7 +238,8 @@ body {
 }
 
 .bg-secondary main > .container .grid.grid-cols-7 button {
-  border-radius: 1rem;
+  border-radius: 1.25rem;
+  background-color: hsl(var(--card));
 }
 
 .bg-secondary main > .container .grid.grid-cols-7 button:hover {
@@ -159,9 +247,14 @@ body {
   box-shadow: 0 14px 32px rgba(16, 40, 66, 0.10);
 }
 
-.bg-secondary main > .container .rounded-lg.border.bg-card.shadow-sm {
-  border-radius: 1.25rem;
-  box-shadow: 0 14px 34px rgba(16, 40, 66, 0.08);
+.bg-secondary main > .container .grid.grid-cols-7 button.border-primary,
+.bg-secondary main > .container .grid.grid-cols-7 button.bg-primary\/10 {
+  background: hsl(var(--primary) / 0.10);
+}
+
+.bg-secondary main > .container .hidden.border-b.bg-muted\/40,
+.bg-secondary main > .container .border-b.bg-muted\/40 {
+  background: hsl(var(--primary) / 0.06);
 }
 
 @keyframes tdb-float {
@@ -182,6 +275,14 @@ body {
 @keyframes tdb-shimmer {
   from { transform: translateX(-120%); }
   to { transform: translateX(120%); }
+}
+
+@media (max-width: 767px) {
+  .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 {
+    min-height: auto;
+    padding: 1.5rem;
+    border-radius: 2rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
