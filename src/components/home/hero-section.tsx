@@ -1,86 +1,73 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { Heart, Users } from "lucide-react"
-import { useTranslation } from "@/lib/i18n"
+import { ArrowRight, Heart, ShieldCheck, Sparkles, Users } from "lucide-react"
+
+const stats = [
+  { value: "+90 mil", label: "jovens atendidos" },
+  { value: "+18 mil", label: "dentistas voluntários" },
+  { value: "+1.300", label: "municípios alcançados" },
+  { value: "+1,2 mil", label: "mulheres acolhidas" },
+]
 
 export function HeroSection() {
-  const { t } = useTranslation()
-
   return (
-    <section className="relative overflow-hidden bg-primary py-16 lg:py-24">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10" aria-hidden="true">
-        <svg className="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <defs>
-            <pattern id="hero-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-              <circle cx="10" cy="10" r="2" fill="currentColor" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#hero-pattern)" />
-        </svg>
+    <section className="relative overflow-hidden bg-primary py-16 text-primary-foreground lg:py-24">
+      <div className="absolute inset-0 opacity-20" aria-hidden="true">
+        <div className="absolute left-8 top-10 h-40 w-40 rounded-full border border-primary-foreground/30" />
+        <div className="absolute bottom-12 right-10 h-64 w-64 rounded-full border border-secondary/60" />
+        <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary blur-3xl" />
       </div>
-
-      <div className="container relative mx-auto px-4">
-        <div className="flex flex-col items-center text-center">
-          {/* Badge */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary-foreground/10 px-4 py-2 text-sm text-primary-foreground">
-            <Heart className="h-4 w-4" aria-hidden="true" />
-            <span>{t.home.hero.badge}</span>
+      <div className="container relative mx-auto grid gap-10 px-4 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div>
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-2 text-sm backdrop-blur">
+            <Heart className="h-4 w-4 text-accent" aria-hidden="true" />
+            Tecnologia para ampliar o direito de sorrir
           </div>
-
-          {/* Main Heading */}
-          <h1 className="max-w-4xl text-balance text-3xl font-extrabold leading-tight text-primary-foreground sm:text-4xl md:text-5xl lg:text-6xl">
-            {t.home.hero.title}{" "}
-            <span className="text-accent">{t.home.hero.highlight}</span>
+          <h1 className="max-w-5xl text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-7xl">
+            Uma jornada digital mais humana para a Turma do Bem.
           </h1>
-
-          {/* Subtitle */}
-          <p className="mt-6 max-w-2xl text-pretty text-lg text-primary-foreground/90 sm:text-xl">
-            {t.home.hero.description}
+          <p className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-primary-foreground/88 sm:text-xl">
+            O Dev do Bem conecta beneficiários, voluntários e equipe administrativa em uma experiência moderna, acessível e preparada para reduzir faltas, organizar casos e aproximar pessoas.
           </p>
-
-          {/* CTA Buttons */}
-          <div className="mt-8 flex w-full max-w-md flex-col items-center gap-3 px-4 sm:mt-10 sm:flex-row sm:justify-center sm:max-w-none sm:px-0">
-            <Button 
-              size="lg" 
-              asChild
-              className="h-14 w-full gap-2 bg-accent text-accent-foreground text-base font-semibold hover:bg-accent/90 sm:w-auto sm:min-w-[200px] sm:text-lg"
-            >
-              <Link to="/cadastro/beneficiario">
-                <Heart className="h-5 w-5" aria-hidden="true" />
-                {t.home.hero.cta}
-              </Link>
+          <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row">
+            <Button size="lg" asChild className="h-14 gap-2 rounded-full bg-accent px-7 text-base font-bold text-accent-foreground shadow-xl shadow-accent/20 hover:bg-accent/90">
+              <Link to="/cadastro/beneficiario">Quero participar<ArrowRight className="h-5 w-5" aria-hidden="true" /></Link>
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              asChild
-              className="h-14 w-full gap-2 border-primary-foreground/30 bg-transparent text-base font-semibold text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto sm:min-w-[200px] sm:text-lg"
-            >
-              <Link to="/cadastro/voluntario">
-                <Users className="h-5 w-5" aria-hidden="true" />
-                {t.home.hero.ctaVolunteer}
-              </Link>
+            <Button size="lg" variant="outline" asChild className="h-14 gap-2 rounded-full border-primary-foreground/30 bg-primary-foreground/5 px-7 text-base font-bold text-primary-foreground hover:bg-primary-foreground/10">
+              <Link to="/cadastro/voluntario"><Users className="h-5 w-5" aria-hidden="true" />Seja voluntário</Link>
             </Button>
           </div>
-
-          {/* Trust Indicators */}
-          <div className="mt-10 grid grid-cols-2 gap-4 border-t border-primary-foreground/20 pt-8 sm:mt-12 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-8">
-            <div className="flex flex-col items-center rounded-lg bg-primary-foreground/5 p-3 sm:bg-transparent sm:p-0">
-              <span className="text-2xl font-bold text-primary-foreground sm:text-3xl">+90 mil</span>
-              <span className="text-xs text-primary-foreground/80 sm:text-sm">{t.home.hero.statsYouth}</span>
-            </div>
-            <div className="flex flex-col items-center rounded-lg bg-primary-foreground/5 p-3 sm:bg-transparent sm:p-0">
-              <span className="text-2xl font-bold text-primary-foreground sm:text-3xl">+18 mil</span>
-              <span className="text-xs text-primary-foreground/80 sm:text-sm">{t.home.hero.statsDentists}</span>
-            </div>
-            <div className="flex flex-col items-center rounded-lg bg-primary-foreground/5 p-3 sm:bg-transparent sm:p-0">
-              <span className="text-2xl font-bold text-primary-foreground sm:text-3xl">+1.300</span>
-              <span className="text-xs text-primary-foreground/80 sm:text-sm">{t.home.hero.statsCities}</span>
-            </div>
-            <div className="flex flex-col items-center rounded-lg bg-primary-foreground/5 p-3 sm:bg-transparent sm:p-0">
-              <span className="text-2xl font-bold text-primary-foreground sm:text-3xl">+1,2 mil</span>
-              <span className="text-xs text-primary-foreground/80 sm:text-sm">{t.home.hero.statsWomen}</span>
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="rounded-3xl border border-primary-foreground/15 bg-primary-foreground/10 p-4 backdrop-blur">
+                <p className="text-2xl font-extrabold sm:text-3xl">{stat.value}</p>
+                <p className="mt-1 text-xs leading-4 text-primary-foreground/72">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="relative">
+          <div className="absolute -inset-4 rounded-[2rem] bg-accent/20 blur-2xl" aria-hidden="true" />
+          <div className="relative overflow-hidden rounded-[2rem] border border-primary-foreground/15 bg-primary-foreground/10 p-5 shadow-2xl shadow-primary/40 backdrop-blur">
+            <div className="rounded-[1.5rem] bg-background p-6 text-foreground shadow-xl">
+              <div className="flex items-center justify-between gap-4">
+                <img src="/images/dev-do-bem-logo.png" alt="Dev do Bem" className="h-16 w-auto" />
+                <div className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Plataforma integrada</div>
+              </div>
+              <div className="mt-8 space-y-4">
+                {[
+                  { icon: ShieldCheck, title: "Jornada acompanhada", text: "Status, documentos, consultas e mensagens em um só fluxo." },
+                  { icon: Sparkles, title: "Experiência acolhedora", text: "Interface clara para quem precisa de orientação simples e segura." },
+                  { icon: Heart, title: "Impacto mensurável", text: "Dados organizados para apoiar decisões e reduzir abandono." },
+                ].map((item) => (
+                  <div key={item.title} className="flex gap-4 rounded-2xl border border-border/70 bg-muted/30 p-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
+                      <item.icon className="h-5 w-5" aria-hidden="true" />
+                    </div>
+                    <div><p className="font-bold">{item.title}</p><p className="mt-1 text-sm leading-6 text-muted-foreground">{item.text}</p></div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
