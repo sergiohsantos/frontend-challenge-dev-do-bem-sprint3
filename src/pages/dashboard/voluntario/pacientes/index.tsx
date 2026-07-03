@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
+import { VolunteerPageHero } from "@/components/dashboard/volunteer-page-hero"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -8,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { DashboardSkeleton } from "@/components/ui/page-loader"
 import { AlertBanner } from "@/components/ui/alert-banner"
 import { Empty, EmptyMedia, EmptyTitle, EmptyDescription } from "@/components/ui/empty"
-import { Users, ArrowLeft, Search, User, Calendar, TrendingUp, MessageSquare, FileText } from "lucide-react"
+import { Users, Search, Calendar, TrendingUp, MessageSquare, FileText, HeartHandshake, ShieldCheck } from "lucide-react"
 import { apiFetch } from "@/lib/api"
 import { getToken, getUser } from "@/lib/auth"
 
@@ -51,9 +52,8 @@ export default function VoluntarioPacientesPage() {
 
         const data = await apiFetch<PatientsResponse>("/api/volunteers/my-patients", {}, token)
         setPatients(data.patients || data.items || [])
-      } catch (err) {
-        console.error("Error loading patients:", err)
-        setError(err instanceof Error ? err.message : "Erro ao carregar pacientes")
+      } catch {
+        setError("Não foi possível carregar seus pacientes agora. Tente novamente em instantes.")
       } finally {
         setIsLoading(false)
       }
@@ -67,10 +67,13 @@ export default function VoluntarioPacientesPage() {
     patient.treatment?.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  const activePatients = patients.filter((patient) => !patient.status || !["concluído", "concluido", "finalizado"].includes(patient.status.toLowerCase())).length
+  const withProgress = patients.filter((patient) => typeof patient.progress === "number").length
+
   if (isLoading) {
     return (
       <div className="flex min-h-screen flex-col bg-background">
-        <DashboardHeader userName={user?.full_name || "Voluntario"} userType="voluntario" notificationCount={0} />
+        <DashboardHeader userName={user?.full_name || "Voluntário"} userType="voluntario" notificationCount={0} />
         <main className="flex-1 py-6 lg:py-8">
           <div className="container mx-auto px-4">
             <DashboardSkeleton />
@@ -82,20 +85,27 @@ export default function VoluntarioPacientesPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <DashboardHeader userName={user?.full_name || "Voluntario"} userType="voluntario" notificationCount={0} />
+      <DashboardHeader userName={user?.full_name || "Voluntário"} userType="voluntario" notificationCount={0} />
       <main className="flex-1 py-6 lg:py-8">
         <div className="container mx-auto px-4">
-          <Button variant="ghost" size="sm" className="mb-4" asChild>
-            <Link to="/dashboard/voluntario">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Voltar ao Dashboard
-            </Link>
-          </Button>
+          <VolunteerPageHero
+            eyebrow="Pacientes"
+            title="Acompanhe quem está sob seu cuidado."
+            description="Veja pacientes ativos, evolução do tratamento, histórico de ações e atalhos para mensagem, prontuário e agendamento."
+            icon={<Users className="h-4 w-4" aria-hidden="true" />}
+            meta={(
+              <>
+                <span className="rounded-full bg-primary-foreground/10 px-3 py-1 font-semibold">{patients.length} paciente(s) vinculados</span>
+                <span className="rounded-full bg-primary-foreground/10 px-3 py-1 font-semibold">{activePatients} em acompanhamento</span>
+                <span className="rounded-full bg-primary-foreground/10 px-3 py-1 font-semibold">{withProgress} com progresso informado</span>
+              </>
+            )}
+          />
 
           {error && (
             <AlertBanner
               type="error"
-              title="Erro"
+              title="Não foi possível carregar tudo"
               message={error}
               dismissible
               onDismiss={() => setError(null)}
@@ -103,111 +113,119 @@ export default function VoluntarioPacientesPage() {
             />
           )}
 
-          <Card>
+          <div className="mb-6 grid gap-4 md:grid-cols-3">
+            <Card className="tdb-polished-card rounded-[2rem]">
+              <CardContent className="flex items-center gap-3 p-5">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Users className="h-5 w-5" /></div>
+                <div><p className="text-sm text-muted-foreground">Total</p><p className="text-2xl font-black text-foreground">{patients.length}</p></div>
+              </CardContent>
+            </Card>
+            <Card className="tdb-polished-card rounded-[2rem]">
+              <CardContent className="flex items-center gap-3 p-5">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-success/10 text-success"><HeartHandshake className="h-5 w-5" /></div>
+                <div><p className="text-sm text-muted-foreground">Ativos</p><p className="text-2xl font-black text-foreground">{activePatients}</p></div>
+              </CardContent>
+            </Card>
+            <Card className="tdb-polished-card rounded-[2rem]">
+              <CardContent className="flex items-center gap-3 p-5">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-accent/10 text-accent"><ShieldCheck className="h-5 w-5" /></div>
+                <div><p className="text-sm text-muted-foreground">Com evolução</p><p className="text-2xl font-black text-foreground">{withProgress}</p></div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="tdb-polished-card rounded-[2rem] shadow-xl shadow-primary/5">
             <CardHeader>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <CardTitle className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-primary" />
-                    Meus Pacientes
+                  <CardTitle className="flex items-center gap-2 text-2xl font-black">
+                    <Users className="h-6 w-6 text-primary" />
+                    Lista de pacientes
                   </CardTitle>
                   <CardDescription>
-                    {patients.length} paciente(s) sob seu cuidado
+                    {filteredPatients.length} paciente(s) exibidos a partir dos seus vínculos atuais.
                   </CardDescription>
                 </div>
-                <div className="relative w-full sm:w-64">
+                <div className="relative w-full sm:w-80">
                   <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
-                    placeholder="Buscar paciente..."
+                    placeholder="Buscar por nome ou tratamento..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-9"
+                    className="h-11 rounded-full pl-9"
                   />
                 </div>
               </div>
             </CardHeader>
             <CardContent>
               {filteredPatients.length > 0 ? (
-                <div className="space-y-4">
+                <div className="grid gap-4">
                   {filteredPatients.map((patient) => (
-                    <div
+                    <article
                       key={patient.id}
-                      className="rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-sm"
+                      className="rounded-[2rem] border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                     >
-                      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                         <div className="flex items-center gap-4">
-                          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 text-lg font-bold text-primary">
+                          <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 text-xl font-black text-primary">
                             {patient.name?.charAt(0) || "P"}
                           </div>
                           <div>
-                            <p className="font-semibold text-foreground">{patient.name}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {patient.age ? `${patient.age} anos` : ""}
-                              {patient.treatment ? ` - ${patient.treatment}` : ""}
+                            <div className="flex flex-wrap items-center gap-2">
+                              <p className="text-lg font-black text-foreground">{patient.name}</p>
+                              {patient.status && <Badge variant="secondary" className="rounded-full">{patient.status}</Badge>}
+                            </div>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                              {patient.age ? `${patient.age} anos` : "Idade não informada"}
+                              {patient.treatment ? ` • ${patient.treatment}` : ""}
                             </p>
-                            {patient.status && (
-                              <Badge variant="secondary" className="mt-1">
-                                {patient.status}
-                              </Badge>
-                            )}
                           </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          {patient.progress !== undefined && (
-                            <div className="flex items-center gap-1 text-sm font-medium text-primary">
-                              <TrendingUp className="h-4 w-4" />
-                              {patient.progress}%
-                            </div>
-                          )}
-                        </div>
+                        {patient.progress !== undefined && (
+                          <div className="flex items-center gap-2 text-sm font-black text-primary">
+                            <TrendingUp className="h-4 w-4" />
+                            {patient.progress}% concluído
+                          </div>
+                        )}
                       </div>
 
                       {patient.progress !== undefined && (
                         <div className="mt-4">
-                          <div className="h-2 rounded-full bg-muted overflow-hidden">
-                            <div
-                              className="h-full rounded-full bg-gradient-to-r from-primary to-primary/80 transition-all duration-500"
-                              style={{ width: `${patient.progress}%` }}
-                            />
+                          <div className="h-2 overflow-hidden rounded-full bg-muted">
+                            <div className="h-full rounded-full bg-gradient-to-r from-primary to-primary/80 transition-all duration-500" style={{ width: `${patient.progress}%` }} />
                           </div>
                         </div>
                       )}
 
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        <Button size="sm" asChild>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        <Button size="sm" asChild className="rounded-full">
                           <Link to={`/dashboard/voluntario/pacientes/${patient.id}`}>
                             <FileText className="mr-2 h-4 w-4" />
-                            Ver Prontuario
+                            Ver prontuário
                           </Link>
                         </Button>
-                        <Button size="sm" variant="outline" asChild>
+                        <Button size="sm" variant="outline" asChild className="rounded-full">
                           <Link to={`/dashboard/voluntario/mensagens?caseId=${patient.caseId || patient.id}`}>
                             <MessageSquare className="mr-2 h-4 w-4" />
                             Mensagem
                           </Link>
                         </Button>
-                        <Button size="sm" variant="outline" asChild>
+                        <Button size="sm" variant="outline" asChild className="rounded-full">
                           <Link to={`/dashboard/voluntario/agenda/novo?patientId=${patient.id}`}>
                             <Calendar className="mr-2 h-4 w-4" />
                             Agendar
                           </Link>
                         </Button>
                       </div>
-                    </div>
+                    </article>
                   ))}
                 </div>
               ) : (
                 <Empty variant="subtle" className="py-12">
-                  <EmptyMedia variant="primary">
-                    <Users className="h-8 w-8" />
-                  </EmptyMedia>
-                  <EmptyTitle>
-                    {searchTerm ? "Nenhum paciente encontrado" : "Nenhum paciente atribuido"}
-                  </EmptyTitle>
+                  <EmptyMedia variant="primary"><Users className="h-8 w-8" /></EmptyMedia>
+                  <EmptyTitle>{searchTerm ? "Nenhum paciente encontrado" : "Nenhum paciente atribuído"}</EmptyTitle>
                   <EmptyDescription>
-                    {searchTerm
-                      ? "Tente buscar com outros termos"
-                      : "Seus pacientes aparecerao aqui quando forem atribuidos a voce"}
+                    {searchTerm ? "Tente buscar com outros termos." : "Seus pacientes aparecerão aqui quando forem atribuídos a você."}
                   </EmptyDescription>
                 </Empty>
               )}
