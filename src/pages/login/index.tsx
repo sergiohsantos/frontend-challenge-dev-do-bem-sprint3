@@ -9,7 +9,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Heart, User, Users, Eye, EyeOff, Phone, ArrowLeft, LogIn, Loader2 } from "lucide-react"
 import { HelpButton } from "@/components/layout/help-button"
 import { AlertBanner } from "@/components/ui/alert-banner"
-import { useI18n } from "@/lib/i18n"
 import { AccessibilityPanel } from "@/components/accessibility/accessibility-panel"
 import { apiFetch, normalizeDigits, normalizeEmail, type LoginPayload, type LoginResponse } from "@/lib/api"
 import { saveAuth, getRedirectPath, normalizeRole } from "@/lib/auth"
@@ -20,9 +19,31 @@ type LoginFormValues = {
   password: string
 }
 
+const t = {
+  header: { logoAlt: "Turma do Bem - Pelo direito de sorrir" },
+  common: { back: "Voltar", loading: "Carregando...", help: "Precisa de ajuda" },
+  nav: { beneficiary: "Beneficiário", volunteer: "Voluntário", login: "Entrar" },
+  login: {
+    welcomeBack: "Bem-vindo de volta",
+    subtitle: "Entre para acompanhar sua jornada na Turma do Bem.",
+    title: "Entrar",
+    selectProfile: "Selecione seu perfil para acessar a plataforma.",
+    noAccount: "Ainda não tem acesso?",
+    beneficiaryProfile: "Cadastro beneficiário",
+    volunteerProfile: "Cadastro voluntário",
+  },
+  forms: {
+    cpf: "CPF",
+    email: "E-mail",
+    password: "Senha",
+    forgotPassword: "Esqueci minha senha",
+    requiredField: "Campo obrigatório",
+    invalidEmail: "Informe um e-mail válido",
+  },
+}
+
 export default function LoginPage() {
   const navigate = useNavigate()
-  const { t } = useI18n()
   const [showPassword, setShowPassword] = useState(false)
   const [userType, setUserType] = useState<"beneficiario" | "voluntario">("beneficiario")
   const [isLoading, setIsLoading] = useState(false)
