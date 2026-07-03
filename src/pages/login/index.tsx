@@ -39,6 +39,7 @@ const t = {
     forgotPassword: "Recuperar acesso",
     requiredField: "Campo obrigatório",
     invalidEmail: "Informe um e-mail válido",
+    invalidCpf: "Informe um CPF válido com 11 números.",
   },
 }
 
@@ -47,6 +48,16 @@ const valueCards = [
   "Consultas, mensagens e documentos no mesmo fluxo",
   "Acesso separado por perfil para proteger informações",
 ]
+
+function formatCpf(value: string) {
+  const digits = normalizeDigits(value).slice(0, 11)
+
+  if (digits.length <= 3) return digits
+  if (digits.length <= 6) return `${digits.slice(0, 3)}.${digits.slice(3)}`
+  if (digits.length <= 9) return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6)}`
+
+  return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6, 9)}-${digits.slice(9, 11)}`
+}
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -147,12 +158,12 @@ export default function LoginPage() {
                 <p className="mt-2 text-sm leading-6 text-primary-foreground/80">{t.login.subtitle}</p>
               </div>
 
-              <Card className="tdb-glass rounded-[2.25rem] border-primary-foreground/15 bg-background text-foreground shadow-2xl shadow-primary/25">
+              <Card className="rounded-[2.25rem] border border-primary-foreground/15 bg-background text-foreground shadow-2xl shadow-primary/25">
                 <CardHeader className="p-6 pb-3 sm:p-8 sm:pb-4">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <CardTitle className="text-2xl font-black tracking-tight sm:text-3xl">{t.login.title}</CardTitle>
-                      <CardDescription className="mt-2 text-sm leading-6">{t.login.selectProfile}</CardDescription>
+                      <CardTitle className="text-2xl font-black tracking-tight text-foreground sm:text-3xl">{t.login.title}</CardTitle>
+                      <CardDescription className="mt-2 text-sm leading-6 text-muted-foreground">{t.login.selectProfile}</CardDescription>
                     </div>
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground"><LockKeyhole className="h-6 w-6" aria-hidden="true" /></div>
                   </div>
@@ -160,7 +171,7 @@ export default function LoginPage() {
 
                 <CardContent className="p-6 pt-0 sm:p-8 sm:pt-0">
                   <Tabs value={userType} onValueChange={(v) => { setUserType(v as "beneficiario" | "voluntario"); setError(null) }}>
-                    <TabsList className="mb-6 grid h-12 w-full grid-cols-2 rounded-full">
+                    <TabsList className="mb-6 grid h-12 w-full grid-cols-2 rounded-full bg-muted">
                       <TabsTrigger value="beneficiario" className="gap-2 rounded-full text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground sm:text-sm"><User className="h-4 w-4" aria-hidden="true" />{t.nav.beneficiary}</TabsTrigger>
                       <TabsTrigger value="voluntario" className="gap-2 rounded-full text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground sm:text-sm"><Users className="h-4 w-4" aria-hidden="true" />{t.nav.volunteer}</TabsTrigger>
                     </TabsList>
@@ -170,23 +181,47 @@ export default function LoginPage() {
 
                       <TabsContent value="beneficiario" className="mt-0 space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="cpf-beneficiario" className="text-sm font-black">{t.forms.cpf}</Label>
+                          <Label htmlFor="cpf-beneficiario" className="text-sm font-black text-foreground">{t.forms.cpf}</Label>
                           <Controller
                             name="cpf"
                             control={control}
-                            rules={{ validate: (value) => userType !== "beneficiario" || normalizeDigits(value).length > 0 || t.forms.requiredField }}
+                            rules={{
+                              validate: (value) => {
+                                if (userType !== "beneficiario") return true
+                                const digits = normalizeDigits(value)
+                                if (!digits) return t.forms.requiredField
+                                return digits.length === 11 || t.forms.invalidCpf
+                              },
+                            }}
                             render={({ field }) => (
-                              <Input id="cpf-beneficiario" type="text" placeholder="000.000.000-00" value={field.value ?? ""} onChange={(e) => { setError(null); field.onChange(e) }} onBlur={field.onBlur} name={field.name} className="h-12 rounded-2xl text-base" autoComplete="username" required aria-describedby="cpf-help" />
+                              <Input
+                                id="cpf-beneficiario"
+                                type="text"
+                                inputMode="numeric"
+                                maxLength={14}
+                                placeholder="000.000.000-00"
+                                value={field.value ?? ""}
+                                onChange={(event) => {
+                                  setError(null)
+                                  field.onChange(formatCpf(event.target.value))
+                                }}
+                                onBlur={field.onBlur}
+                                name={field.name}
+                                className="h-12 rounded-2xl bg-background text-base text-foreground placeholder:text-muted-foreground"
+                                autoComplete="username"
+                                required
+                                aria-describedby="cpf-help"
+                              />
                             )}
                           />
-                          <p id="cpf-help" className="text-xs text-muted-foreground">Use o CPF cadastrado na Turma do Bem.</p>
+                          <p id="cpf-help" className="text-xs text-muted-foreground">Digite somente os 11 números do CPF cadastrado.</p>
                           {errors.cpf && userType === "beneficiario" ? <p className="text-xs text-destructive">{errors.cpf.message}</p> : null}
                         </div>
                       </TabsContent>
 
                       <TabsContent value="voluntario" className="mt-0 space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="email-voluntario" className="text-sm font-black">{t.forms.email}</Label>
+                          <Label htmlFor="email-voluntario" className="text-sm font-black text-foreground">{t.forms.email}</Label>
                           <Controller
                             name="email"
                             control={control}
@@ -198,7 +233,7 @@ export default function LoginPage() {
                               },
                             }}
                             render={({ field }) => (
-                              <Input id="email-voluntario" type="email" placeholder="seu@email.com" value={field.value ?? ""} onChange={(e) => { setError(null); field.onChange(e) }} onBlur={field.onBlur} name={field.name} className="h-12 rounded-2xl text-base" autoComplete="username email" required aria-describedby="email-help" />
+                              <Input id="email-voluntario" type="email" placeholder="seu@email.com" value={field.value ?? ""} onChange={(e) => { setError(null); field.onChange(e) }} onBlur={field.onBlur} name={field.name} className="h-12 rounded-2xl bg-background text-base text-foreground placeholder:text-muted-foreground" autoComplete="username email" required aria-describedby="email-help" />
                             )}
                           />
                           <p id="email-help" className="text-xs text-muted-foreground">Use o e-mail cadastrado como voluntário.</p>
@@ -208,7 +243,7 @@ export default function LoginPage() {
 
                       <div className="space-y-2">
                         <div className="flex items-center justify-between gap-3">
-                          <Label htmlFor="password" className="text-sm font-black">{t.forms.password}</Label>
+                          <Label htmlFor="password" className="text-sm font-black text-foreground">{t.forms.password}</Label>
                           <Link to="/recuperar-senha" className="rounded text-sm font-bold text-primary hover:underline focus-visible:ring-2 focus-visible:ring-ring">{t.forms.forgotPassword}</Link>
                         </div>
                         <div className="relative">
@@ -217,7 +252,7 @@ export default function LoginPage() {
                             control={control}
                             rules={{ required: t.forms.requiredField }}
                             render={({ field }) => (
-                              <Input id="password" type={showPassword ? "text" : "password"} placeholder="Digite sua senha" value={field.value ?? ""} onChange={(e) => { setError(null); field.onChange(e) }} onBlur={field.onBlur} name={field.name} className="h-12 rounded-2xl pr-12 text-base" autoComplete="current-password" required />
+                              <Input id="password" type={showPassword ? "text" : "password"} placeholder="Digite sua senha" value={field.value ?? ""} onChange={(e) => { setError(null); field.onChange(e) }} onBlur={field.onBlur} name={field.name} className="h-12 rounded-2xl bg-background pr-12 text-base text-foreground placeholder:text-muted-foreground" autoComplete="current-password" required />
                             )}
                           />
                           <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 rounded text-muted-foreground -translate-y-1/2 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring" aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}>
