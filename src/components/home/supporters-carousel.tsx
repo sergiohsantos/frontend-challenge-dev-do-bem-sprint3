@@ -4,16 +4,16 @@ import Autoplay from "embla-carousel-autoplay"
 
 const supporters = [
   { name: "Surya Dental", type: "mantenedor" },
+  { name: "Colgate", type: "apoiador" },
   { name: "Kess", type: "mantenedor" },
   { name: "3M", type: "apoiador" },
-  { name: "Colgate", type: "apoiador" },
-  { name: "Oral-B", type: "apoiador" },
-  { name: "Sensodyne", type: "apoiador" },
   { name: "Dentalclean", type: "apoiador" },
   { name: "Dental Cremer", type: "apoiador" },
   { name: "Henry Schein", type: "apoiador" },
+  { name: "Sensodyne", type: "apoiador" },
   { name: "Orthometric", type: "apoiador" },
   { name: "FGM", type: "apoiador" },
+  { name: "Oral-B", type: "apoiador" },
   { name: "Angelus", type: "apoiador" },
 ]
 
