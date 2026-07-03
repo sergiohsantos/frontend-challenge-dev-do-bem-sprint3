@@ -1,78 +1,30 @@
-import { ClipboardList, UserCheck, Calendar, Smile } from "lucide-react"
-import { useTranslation } from "@/lib/i18n"
+import { Calendar, ClipboardList, Smile, UserCheck } from "lucide-react"
+
+const steps = [
+  { number: 1, icon: ClipboardList, title: "Cadastro recebido", description: "A pessoa inicia sua solicitação com dados básicos e orientações claras." },
+  { number: 2, icon: UserCheck, title: "Triagem e aprovação", description: "A equipe avalia critérios, documentos e prioridade de atendimento." },
+  { number: 3, icon: Calendar, title: "Consulta agendada", description: "O voluntário é indicado e a consulta passa a ser acompanhada pela plataforma." },
+  { number: 4, icon: Smile, title: "Cuidado continuado", description: "Mensagens, confirmações e notificações ajudam a manter a jornada ativa." },
+]
 
 export function HowItWorks() {
-  const { t } = useTranslation()
-  
-  const steps = [
-    {
-      number: 1,
-      icon: ClipboardList,
-      title: t.home.howItWorks.steps.register.title,
-      description: t.home.howItWorks.steps.register.description,
-    },
-    {
-      number: 2,
-      icon: UserCheck,
-      title: t.home.howItWorks.steps.confirmation.title,
-      description: t.home.howItWorks.steps.confirmation.description,
-    },
-    {
-      number: 3,
-      icon: Calendar,
-      title: t.home.howItWorks.steps.schedule.title,
-      description: t.home.howItWorks.steps.schedule.description,
-    },
-    {
-      number: 4,
-      icon: Smile,
-      title: t.home.howItWorks.steps.treatment.title,
-      description: t.home.howItWorks.steps.treatment.description,
-    },
-  ]
-
   return (
     <section className="bg-background py-12 sm:py-16 lg:py-24" aria-labelledby="how-it-works-heading">
       <div className="container mx-auto px-4">
-        <div className="text-center">
-          <h2 
-            id="how-it-works-heading"
-            className="text-xl font-bold text-foreground sm:text-2xl md:text-3xl lg:text-4xl"
-          >
-            {t.home.howItWorks.title}
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:mt-4 sm:text-lg">
-            {t.home.howItWorks.subtitle}
-          </p>
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="text-sm font-bold uppercase tracking-[0.25em] text-accent">Jornada</span>
+          <h2 id="how-it-works-heading" className="mt-3 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">Do cadastro ao atendimento, cada etapa precisa ser compreensível.</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">A proposta visual deixa o fluxo mais claro para beneficiários, voluntários e administração, sem criar regras de negócio novas.</p>
         </div>
-
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:mt-12 sm:gap-8 lg:grid-cols-4">
-          {steps.map((step, index) => (
-            <div key={step.number} className="relative flex flex-col items-center text-center">
-              {/* Connector Line */}
-              {index < steps.length - 1 && (
-                <div 
-                  className="absolute left-[calc(50%+40px)] top-10 hidden h-0.5 w-[calc(100%-80px)] bg-border lg:block"
-                  aria-hidden="true"
-                />
-              )}
-              
-              {/* Step Number */}
-              <div className="relative">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground sm:h-20 sm:w-20">
-                  <step.icon className="h-6 w-6 sm:h-8 sm:w-8" aria-hidden="true" />
-                </div>
-                <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground sm:h-8 sm:w-8 sm:text-sm">
-                  {step.number}
-                </span>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step) => (
+            <div key={step.number} className="relative rounded-3xl border border-border/70 bg-card p-6 shadow-md shadow-primary/5">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground"><step.icon className="h-7 w-7" aria-hidden="true" /></div>
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-extrabold text-accent-foreground">{step.number}</span>
               </div>
-
-              <h3 className="mt-4 text-base font-bold text-foreground sm:mt-6 sm:text-lg">
-                {step.title}
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground leading-relaxed sm:mt-2 sm:text-base">
-                {step.description}
-              </p>
+              <h3 className="mt-5 text-lg font-extrabold text-foreground">{step.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{step.description}</p>
             </div>
           ))}
         </div>
