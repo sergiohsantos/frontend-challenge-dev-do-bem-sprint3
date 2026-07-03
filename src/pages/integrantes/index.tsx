@@ -1,4 +1,4 @@
-import { Github, Linkedin, Code2, Database, Bot, ShieldCheck, Sparkles, HeartHandshake } from "lucide-react"
+import { Github, Linkedin, Code2, Database, Bot, ShieldCheck, Sparkles, HeartHandshake, Cloud, FileText, ServerCog } from "lucide-react"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { HelpButton } from "@/components/layout/help-button"
@@ -9,35 +9,77 @@ import { Button } from "@/components/ui/button"
 const member = {
   name: "Sérgio Henrique Santos",
   rm: "RM567254",
-  turma: "1TDS Agosto",
-  role: "Idealização, arquitetura e desenvolvimento full stack",
+  turma: "1TDSPS",
+  role: "Arquitetura, desenvolvimento e sustentação do projeto",
   linkedinUrl: "https://www.linkedin.com/in/sergiohenriquessantos/",
   githubUrl: "https://github.com/sergiohsantos",
   photoUrl: "/team/Sergio.jpg",
-  bio: "Projeto conduzido individualmente, com foco em transformar a jornada da Turma do Bem em uma experiência digital mais clara, humana e operacionalmente segura para beneficiários, voluntários e equipe administrativa.",
+  bio: "Especialista em Cloud, SRE e DevOps, com experiência em infraestrutura crítica, Kubernetes, AWS, Azure, automação, observabilidade e sustentação de ambientes corporativos. No Dev do Bem, atua de ponta a ponta: arquitetura, backend, frontend, banco de dados, IA, UX e operação da solução.",
 }
 
 const areas = [
-  { label: "Frontend Enterprise", icon: Code2 },
-  { label: "Python API", icon: Code2 },
-  { label: "Java e Oracle", icon: Database },
-  { label: "IA e No-show", icon: Bot },
-  { label: "Produto e UX", icon: Sparkles },
-  { label: "Segurança e LGPD", icon: ShieldCheck },
+  {
+    label: "Front-end Design Engineering",
+    short: "React, Vite, TypeScript e UX/UI",
+    icon: Code2,
+    description: "Construção da interface web, rotas, formulários, acessibilidade, dashboards e experiência visual da plataforma.",
+  },
+  {
+    label: "Computational Thinking Using Python",
+    short: "FastAPI e backend core",
+    icon: ServerCog,
+    description: "API principal do projeto, com autenticação, consultas, documentos, mensagens, notificações e regras do beneficiário.",
+  },
+  {
+    label: "Domain Driven Design Using Java",
+    short: "Java, Quarkus e Oracle",
+    icon: Code2,
+    description: "Backend de triagem, onboarding, CRM e fluxos administrativos, modelado com foco em domínio e regras de negócio.",
+  },
+  {
+    label: "Building Relational Database",
+    short: "Modelagem e Oracle SQL",
+    icon: Database,
+    description: "Estrutura relacional, DDL, DML, constraints, relacionamentos, dados de massa, views e documentação do banco.",
+  },
+  {
+    label: "AI, Chatbot & Cognitive Services",
+    short: "IA, no-show e assistente",
+    icon: Bot,
+    description: "Predição de risco de falta, apoio à decisão, chatbot e recursos cognitivos conectados à jornada de atendimento.",
+  },
+  {
+    label: "Software Engineering & Business Model",
+    short: "Produto, requisitos e documentação",
+    icon: FileText,
+    description: "Organização da proposta, personas, fluxos, regras, documentação, visão de produto e sustentação da entrega.",
+  },
+  {
+    label: "Cloud, DevOps e Observabilidade",
+    short: "AWS, Azure, Docker e monitoramento",
+    icon: Cloud,
+    description: "Deploy, infraestrutura, containers, operação, logs, métricas, esteiras e práticas de sustentação aplicadas ao projeto.",
+  },
+  {
+    label: "Segurança e LGPD",
+    short: "Acesso, perfis e dados sensíveis",
+    icon: ShieldCheck,
+    description: "Cuidados com autenticação, separação por perfil, exposição mínima de dados e experiência segura para usuários.",
+  },
 ]
 
 const pillars = [
   {
-    title: "Visão de produto",
-    description: "Organização dos fluxos reais da ONG em uma plataforma simples, acolhedora e confiável.",
+    title: "Visão prática",
+    description: "O projeto foi conduzido com foco em resolver fluxos reais: cadastro, triagem, consulta, comunicação e acompanhamento.",
   },
   {
     title: "Arquitetura ponta a ponta",
-    description: "Integração entre frontend, APIs, banco de dados, comunicação, notificações e painéis por perfil.",
+    description: "Frontend, APIs, banco de dados, IA, documentação e operação foram tratados como partes da mesma jornada.",
   },
   {
-    title: "Impacto social",
-    description: "Tecnologia aplicada para reduzir fricção operacional e apoiar a continuidade do atendimento.",
+    title: "Base profissional",
+    description: "A experiência em Cloud, SRE, DevOps e infraestrutura sustenta decisões técnicas, segurança e continuidade da solução.",
   },
 ]
 
@@ -54,13 +96,13 @@ export default function IntegrantesPage() {
           <div className="container relative mx-auto grid gap-10 px-4 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
               <Badge className="mb-5 rounded-full bg-primary-foreground/10 px-4 py-1.5 text-primary-foreground hover:bg-primary-foreground/10">
-                Projeto individual
+                Responsável técnico
               </Badge>
               <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                Dev do Bem construído com responsabilidade, visão e execução completa.
+                Uma entrega sustentada por arquitetura, execução e responsabilidade técnica.
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-primary-foreground/85 sm:text-lg">
-                A partir desta etapa, o projeto segue oficialmente conduzido apenas por Sérgio Henrique Santos, preservando a qualidade técnica e elevando a experiência visual e funcional da solução.
+                O Dev do Bem é conduzido por Sérgio Henrique Santos, unindo experiência profissional em Cloud, SRE, DevOps e infraestrutura com a construção acadêmica da solução na FIAP.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild className="rounded-full bg-accent px-6 text-accent-foreground hover:bg-accent/90">
@@ -109,19 +151,27 @@ export default function IntegrantesPage() {
                   </div>
                 </div>
                 <p className="mt-5 text-sm leading-7 text-muted-foreground">
-                  A página foi ajustada para refletir a realidade atual da entrega: desenvolvimento solo, com abordagem profissional, documentação consistente e foco em uma experiência digital mais madura para a banca final.
+                  A sustentação do Dev do Bem envolve decisões de produto, arquitetura, implementação, integração com APIs, modelagem de dados, documentação e refinamento da experiência para beneficiários, voluntários e equipe TDB.
                 </p>
               </CardContent>
             </Card>
 
             <div className="grid gap-4 sm:grid-cols-2">
               {areas.map((area) => (
-                <Card key={area.label} className="group border-border/80 transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-lg hover:shadow-primary/10">
-                  <CardContent className="flex items-center gap-3 p-5">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                      <area.icon className="h-5 w-5" />
+                <Card key={area.label} title={area.description} className="group border-border/80 transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-lg hover:shadow-primary/10 focus-within:border-primary/25">
+                  <CardContent className="p-5">
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground group-focus-within:bg-primary group-focus-within:text-primary-foreground">
+                        <area.icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <span className="font-semibold text-foreground">{area.label}</span>
+                        <p className="mt-1 text-xs leading-5 text-muted-foreground">{area.short}</p>
+                      </div>
                     </div>
-                    <span className="font-semibold text-foreground">{area.label}</span>
+                    <div className="mt-0 max-h-0 overflow-hidden rounded-2xl border border-transparent bg-muted/40 px-4 text-sm leading-6 text-muted-foreground opacity-0 transition-all duration-300 group-hover:mt-4 group-hover:max-h-40 group-hover:border-border group-hover:py-3 group-hover:opacity-100 group-focus-within:mt-4 group-focus-within:max-h-40 group-focus-within:border-border group-focus-within:py-3 group-focus-within:opacity-100">
+                      {area.description}
+                    </div>
                   </CardContent>
                 </Card>
               ))}
