@@ -10,32 +10,46 @@ export function AgendaPolishStyle() {
         grid-template-columns: minmax(0, 1fr) auto !important;
         align-items: center !important;
         gap: 2rem !important;
-        min-height: 21.5rem !important;
-        padding: 2.5rem !important;
+        min-height: 20.75rem !important;
+        padding: 2rem !important;
         border-radius: 2.5rem !important;
         background: radial-gradient(circle at 0% 0%, rgba(91, 191, 186, 0.52), transparent 20rem), radial-gradient(circle at 92% 58%, rgba(245, 132, 31, 0.42), transparent 18rem), linear-gradient(135deg, #06385e 0%, #07385f 58%, #16384f 100%) !important;
         color: #ffffff !important;
         border-color: rgba(255, 255, 255, 0.14) !important;
-        box-shadow: 0 30px 72px rgba(16, 40, 66, 0.20) !important;
+        box-shadow: 0 26px 64px rgba(16, 40, 66, 0.18) !important;
+      }
+
+      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4::before {
+        background: none !important;
+        background-image: none !important;
       }
 
       .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:first-child {
+        display: flex !important;
         max-width: 48rem !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
         position: relative !important;
         z-index: 2 !important;
       }
 
       .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 h1 {
+        order: 2 !important;
+        flex-basis: 100% !important;
         max-width: 44rem !important;
+        margin-top: 1rem !important;
         color: #ffffff !important;
-        font-size: clamp(2.6rem, 4.2vw, 4.65rem) !important;
-        line-height: 0.98 !important;
-        letter-spacing: -0.045em !important;
+        font-size: clamp(2.35rem, 3.45vw, 3.55rem) !important;
+        line-height: 1 !important;
+        letter-spacing: -0.04em !important;
         font-weight: 900 !important;
       }
 
       .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 p {
+        order: 3 !important;
+        flex-basis: 100% !important;
         max-width: 42rem !important;
+        margin-top: 1.2rem !important;
         color: #ffffff !important;
         opacity: 0.84 !important;
         line-height: 1.75 !important;
@@ -43,11 +57,12 @@ export function AgendaPolishStyle() {
       }
 
       .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:first-child::before {
+        order: 0 !important;
         display: inline-flex !important;
         width: fit-content !important;
         margin-right: 0.65rem !important;
-        margin-bottom: 1.25rem !important;
-        padding: 0.55rem 1rem !important;
+        margin-bottom: 0 !important;
+        padding: 0.55rem 0 !important;
         border-radius: 9999px !important;
         content: "←  Voltar ao painel" !important;
         color: rgba(255, 255, 255, 0.86) !important;
@@ -60,9 +75,10 @@ export function AgendaPolishStyle() {
       }
 
       .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:first-child::after {
+        order: 1 !important;
         display: inline-flex !important;
         width: fit-content !important;
-        margin-bottom: 1.25rem !important;
+        margin-bottom: 0 !important;
         padding: 0.55rem 1rem !important;
         border-radius: 9999px !important;
         content: "AGENDA" !important;
@@ -81,11 +97,13 @@ export function AgendaPolishStyle() {
         min-width: 13rem !important;
         display: flex !important;
         justify-content: flex-end !important;
+        align-self: center !important;
       }
 
-      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child a {
-        height: 3.35rem !important;
-        padding-inline: 1.35rem !important;
+      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child a,
+      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child button {
+        height: 3.5rem !important;
+        padding-inline: 1.55rem !important;
         background: hsl(var(--accent)) !important;
         color: hsl(var(--accent-foreground)) !important;
         border-color: transparent !important;
