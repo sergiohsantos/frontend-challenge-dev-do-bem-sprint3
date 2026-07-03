@@ -7,6 +7,7 @@ import { SkipLink } from './components/accessibility/skip-link'
 import { ScrollToTop } from './components/navigation/scroll-to-top'
 import { WatsonAssistant } from './components/watson-assistant'
 import './index.css'
+import './styles/premium-experience.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
