@@ -45,16 +45,34 @@ export function AgendaPolishStyle() {
       .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:first-child::before {
         display: inline-flex !important;
         width: fit-content !important;
+        margin-right: 0.65rem !important;
         margin-bottom: 1.25rem !important;
         padding: 0.55rem 1rem !important;
         border-radius: 9999px !important;
-        content: "AGENDA DO VOLUNTÁRIO" !important;
+        content: "←  Voltar ao painel" !important;
+        color: rgba(255, 255, 255, 0.86) !important;
+        background: transparent !important;
+        border: 0 !important;
+        font-size: 0.9rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 0 !important;
+        vertical-align: middle !important;
+      }
+
+      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:first-child::after {
+        display: inline-flex !important;
+        width: fit-content !important;
+        margin-bottom: 1.25rem !important;
+        padding: 0.55rem 1rem !important;
+        border-radius: 9999px !important;
+        content: "AGENDA" !important;
         color: hsl(var(--accent)) !important;
         background: rgba(255, 255, 255, 0.10) !important;
         border: 1px solid rgba(255, 255, 255, 0.18) !important;
         font-size: 0.78rem !important;
         font-weight: 900 !important;
         letter-spacing: 0.18em !important;
+        vertical-align: middle !important;
       }
 
       .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child {
@@ -66,8 +84,8 @@ export function AgendaPolishStyle() {
       }
 
       .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child a {
-        height: 3.5rem !important;
-        padding-inline: 1.55rem !important;
+        height: 3.35rem !important;
+        padding-inline: 1.35rem !important;
         background: hsl(var(--accent)) !important;
         color: hsl(var(--accent-foreground)) !important;
         border-color: transparent !important;
