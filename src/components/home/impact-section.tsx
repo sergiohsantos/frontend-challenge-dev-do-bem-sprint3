@@ -1,71 +1,30 @@
-import { Heart, Smile, Users, Building2 } from "lucide-react"
-import { useTranslation } from "@/lib/i18n"
+import { Building2, Heart, Smile, Users } from "lucide-react"
 
-// Impact section with i18n support
+const stats = [
+  { icon: Heart, value: "+90.000", label: "Sorrisos transformados", description: "Jovens atendidos pela rede da Turma do Bem." },
+  { icon: Users, value: "+18.000", label: "Voluntários", description: "Profissionais conectados por impacto social." },
+  { icon: Building2, value: "+1.300", label: "Municípios", description: "Presença distribuída pelo Brasil." },
+  { icon: Smile, value: "1 jornada", label: "Fluxo integrado", description: "Consultas, documentos, mensagens e notificações." },
+]
+
 export function ImpactSection() {
-  const { t } = useTranslation()
-  
-  const stats = [
-    {
-      icon: Heart,
-      value: "+90.000",
-      label: t.home.impact.stats.smiles,
-      description: t.home.impact.stats.smilesDesc,
-    },
-    {
-      icon: Users,
-      value: "+18.000",
-      label: t.home.impact.stats.volunteers,
-      description: t.home.impact.stats.volunteersDesc,
-    },
-    {
-      icon: Building2,
-      value: "+1.300",
-      label: t.home.impact.stats.cities,
-      description: t.home.impact.stats.citiesDesc,
-    },
-    {
-      icon: Smile,
-      value: "98%",
-      label: t.home.impact.stats.satisfaction,
-      description: t.home.impact.stats.satisfactionDesc,
-    },
-  ]
-
   return (
     <section className="bg-background py-12 sm:py-16 lg:py-24" aria-labelledby="impact-heading">
       <div className="container mx-auto px-4">
-        <div className="text-center">
-          <h2 
-            id="impact-heading"
-            className="text-xl font-bold text-foreground sm:text-2xl md:text-3xl lg:text-4xl"
-          >
-            {t.home.impact.title}
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:mt-4 sm:text-lg">
-            {t.home.impact.subtitle}
-          </p>
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="text-sm font-bold uppercase tracking-[0.25em] text-accent">Impacto social</span>
+          <h2 id="impact-heading" className="mt-3 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">Uma plataforma para transformar cuidado em continuidade.</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">Indicadores, jornada e comunicação foram organizados para reforçar confiança, escala e acolhimento.</p>
         </div>
-
-        <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-6 lg:grid-cols-4">
-          {stats.map((stat, index) => (
-            <div 
-              key={`stat-${index}`}
-              className="group rounded-xl border border-border bg-card p-4 text-center transition-all hover:border-primary/30 hover:shadow-lg sm:rounded-2xl sm:p-6"
-            >
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:h-14 sm:w-14">
-                <stat.icon className="h-5 w-5 sm:h-7 sm:w-7" aria-hidden="true" />
-              </div>
-              <p className="mt-3 text-2xl font-bold text-foreground sm:mt-4 sm:text-3xl lg:text-4xl">
-                {stat.value}
-              </p>
-              <p className="mt-1 text-sm font-medium text-foreground sm:mt-2 sm:text-base">
-                {stat.label}
-              </p>
-              <p className="mt-1 hidden text-sm text-muted-foreground sm:block">
-                {stat.description}
-              </p>
-            </div>
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((stat) => (
+            <article key={stat.label} className="group relative overflow-hidden rounded-3xl border border-border/70 bg-card p-6 shadow-md shadow-primary/5 transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-xl hover:shadow-primary/10">
+              <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-secondary/20 blur-2xl" aria-hidden="true" />
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground"><stat.icon className="h-6 w-6" aria-hidden="true" /></div>
+              <p className="relative mt-5 text-3xl font-extrabold text-foreground">{stat.value}</p>
+              <p className="relative mt-2 font-bold text-foreground">{stat.label}</p>
+              <p className="relative mt-2 text-sm leading-6 text-muted-foreground">{stat.description}</p>
+            </article>
           ))}
         </div>
       </div>
