@@ -1,6 +1,34 @@
 export function AgendaPolishStyle() {
   return (
     <style>{`
+      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 {
+        background: radial-gradient(circle at 0% 0%, rgba(91, 191, 186, 0.52), transparent 20rem), radial-gradient(circle at 92% 58%, rgba(245, 132, 31, 0.42), transparent 18rem), linear-gradient(135deg, #06385e 0%, #07385f 58%, #16384f 100%) !important;
+        color: #ffffff !important;
+        border-color: rgba(255, 255, 255, 0.14) !important;
+        box-shadow: 0 30px 72px rgba(16, 40, 66, 0.20) !important;
+      }
+
+      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 h1,
+      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 p {
+        color: #ffffff !important;
+      }
+
+      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 p {
+        opacity: 0.84 !important;
+      }
+
+      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:first-child::before {
+        color: hsl(var(--accent)) !important;
+        background: rgba(255, 255, 255, 0.10) !important;
+        border-color: rgba(255, 255, 255, 0.18) !important;
+      }
+
+      .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child a {
+        background: hsl(var(--accent)) !important;
+        color: hsl(var(--accent-foreground)) !important;
+        border-color: transparent !important;
+      }
+
       .bg-secondary main .grid.grid-cols-7 button {
         min-height: 7rem;
         border-radius: 1.25rem;
@@ -55,8 +83,8 @@ export function AgendaPolishStyle() {
         background: hsl(var(--muted) / 0.34);
       }
 
-      .bg-secondary main .grid.gap-4.sm\\:grid-cols-2 > div,
-      .bg-secondary main .grid.gap-4.xl\\:grid-cols-5 > div {
+      .bg-secondary main .grid.gap-4.sm\:grid-cols-2 > div,
+      .bg-secondary main .grid.gap-4.xl\:grid-cols-5 > div {
         border-radius: 2rem;
         background: hsl(var(--card));
         box-shadow: 0 18px 52px rgba(16, 40, 66, 0.08);
