@@ -60,9 +60,11 @@ export function AgendaPolishStyle() {
         order: 0 !important;
         display: inline-flex !important;
         width: fit-content !important;
+        height: 2.5rem !important;
+        align-items: center !important;
         margin-right: 0.65rem !important;
         margin-bottom: 0 !important;
-        padding: 0.55rem 0 !important;
+        padding: 0 0.75rem 0 0 !important;
         border-radius: 9999px !important;
         content: "←  Voltar ao painel" !important;
         color: rgba(255, 255, 255, 0.86) !important;
@@ -78,8 +80,10 @@ export function AgendaPolishStyle() {
         order: 1 !important;
         display: inline-flex !important;
         width: fit-content !important;
+        height: 2.5rem !important;
+        align-items: center !important;
         margin-bottom: 0 !important;
-        padding: 0.55rem 1rem !important;
+        padding: 0 1rem !important;
         border-radius: 9999px !important;
         content: "AGENDA" !important;
         color: hsl(var(--accent)) !important;
@@ -102,13 +106,18 @@ export function AgendaPolishStyle() {
 
       .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child a,
       .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child button {
+        display: inline-flex !important;
         height: 3.5rem !important;
-        padding-inline: 1.55rem !important;
+        min-height: 3.5rem !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding-inline: 1.5rem !important;
         background: hsl(var(--accent)) !important;
         color: hsl(var(--accent-foreground)) !important;
         border-color: transparent !important;
         border-radius: 9999px !important;
         font-weight: 900 !important;
+        white-space: nowrap !important;
         box-shadow: 0 18px 44px rgba(245, 132, 31, 0.25) !important;
       }
 
