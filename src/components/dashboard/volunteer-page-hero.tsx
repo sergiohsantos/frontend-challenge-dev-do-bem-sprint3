@@ -28,6 +28,31 @@ export function VolunteerPageHero({
 }: VolunteerPageHeroProps) {
   return (
     <section className="tdb-premium-shell relative mb-8 min-h-[21.5rem] overflow-hidden rounded-[2.5rem] bg-primary p-6 text-primary-foreground shadow-2xl shadow-primary/20 lg:p-8">
+      <style>{`
+        .tdb-volunteer-hero-actions > a,
+        .tdb-volunteer-hero-actions > button {
+          height: 3.5rem;
+          min-height: 3.5rem;
+          border-radius: 9999px;
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+          font-weight: 900;
+          align-items: center;
+          justify-content: center;
+          white-space: nowrap;
+        }
+
+        .tdb-volunteer-hero-meta > span {
+          display: inline-flex;
+          min-height: 1.75rem;
+          align-items: center;
+          border-radius: 9999px;
+          padding: 0.25rem 0.75rem;
+          background: rgba(255, 255, 255, 0.10);
+          font-weight: 800;
+          line-height: 1.2;
+        }
+      `}</style>
       <div className="tdb-orb -left-16 top-4 h-56 w-56 bg-secondary" aria-hidden="true" />
       <div className="tdb-orb tdb-orb-delayed -right-16 bottom-0 h-64 w-64 bg-accent" aria-hidden="true" />
       <div className="relative grid h-full gap-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:justify-between">
@@ -46,10 +71,10 @@ export function VolunteerPageHero({
           </div>
           <h1 className="max-w-3xl text-3xl font-black leading-[1.02] tracking-[-0.04em] sm:text-4xl lg:text-5xl">{title}</h1>
           <p className="mt-5 max-w-2xl text-base leading-8 text-primary-foreground/84">{description}</p>
-          {meta ? <div className="mt-6 flex flex-wrap items-center gap-2 text-sm text-primary-foreground/82">{meta}</div> : null}
+          {meta ? <div className="tdb-volunteer-hero-meta mt-6 flex flex-wrap items-center gap-2 text-sm text-primary-foreground/82">{meta}</div> : null}
         </div>
         {(primaryAction || secondaryAction) && (
-          <div className="flex w-full flex-wrap gap-3 lg:w-auto lg:min-w-[360px] lg:justify-end">
+          <div className="tdb-volunteer-hero-actions flex w-full flex-wrap gap-3 lg:w-auto lg:min-w-[360px] lg:justify-end">
             {primaryAction}
             {secondaryAction}
           </div>
