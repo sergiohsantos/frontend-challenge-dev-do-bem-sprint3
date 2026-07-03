@@ -9,139 +9,85 @@ import {
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { useAccessibility, type FontSize } from "@/lib/accessibility"
-import { useI18n } from "@/lib/i18n"
-import { Accessibility, RotateCcw, Type, Contrast, Zap } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Accessibility, Contrast, RotateCcw, Type, Zap } from "lucide-react"
 
 interface AccessibilityPanelProps {
   variant?: "default" | "outline" | "ghost"
   className?: string
 }
 
-const fontSizeOptions: { value: FontSize; labelKey: "fontSizeNormal" | "fontSizeLarge" | "fontSizeExtraLarge" }[] = [
-  { value: "normal", labelKey: "fontSizeNormal" },
-  { value: "large", labelKey: "fontSizeLarge" },
-  { value: "extra-large", labelKey: "fontSizeExtraLarge" },
+const fontSizeOptions: { value: FontSize; label: string }[] = [
+  { value: "normal", label: "Normal" },
+  { value: "large", label: "Grande" },
+  { value: "extra-large", label: "Extra grande" },
 ]
 
-export function AccessibilityPanel({ 
-  variant = "ghost",
-  className 
-}: AccessibilityPanelProps) {
-  const { 
-    fontSize, 
-    setFontSize, 
-    highContrast, 
-    setHighContrast, 
-    reducedMotion, 
-    setReducedMotion,
-    resetPreferences 
-  } = useAccessibility()
-  const { t } = useI18n()
+export function AccessibilityPanel({ variant = "ghost", className }: AccessibilityPanelProps) {
+  const { fontSize, setFontSize, highContrast, setHighContrast, reducedMotion, setReducedMotion, resetPreferences } = useAccessibility()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button 
-          variant={variant} 
-          size="icon"
-          className={className}
-          aria-label={t.accessibility.accessibilityOptions}
-        >
+        <Button variant={variant} size="icon" className={className} aria-label="Opções de acessibilidade">
           <Accessibility className="h-5 w-5" aria-hidden="true" />
-          <span className="sr-only">{t.accessibility.accessibilityOptions}</span>
+          <span className="sr-only">Opções de acessibilidade</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-72 p-4">
         <DropdownMenuLabel className="flex items-center gap-2 text-base font-semibold">
           <Accessibility className="h-5 w-5 text-primary" aria-hidden="true" />
-          {t.accessibility.title}
+          Acessibilidade
         </DropdownMenuLabel>
-        <p className="text-xs text-muted-foreground mt-1 mb-3">
-          {t.accessibility.description}
+        <p className="mb-3 mt-1 text-xs text-muted-foreground">
+          Ajuste a leitura e a navegação conforme sua necessidade.
         </p>
         <DropdownMenuSeparator />
-        
-        {/* Font Size */}
+
         <div className="py-3">
-          <div className="flex items-center gap-2 mb-3">
+          <div className="mb-3 flex items-center gap-2">
             <Type className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-            <Label className="text-sm font-medium">{t.accessibility.fontSize}</Label>
+            <Label className="text-sm font-medium">Tamanho da fonte</Label>
           </div>
-          <div className="flex gap-2" role="radiogroup" aria-label={t.accessibility.fontSize}>
+          <div className="flex gap-2" role="radiogroup" aria-label="Tamanho da fonte">
             {fontSizeOptions.map((option) => (
-              <Button
-                key={option.value}
-                variant={fontSize === option.value ? "default" : "outline"}
-                size="sm"
-                onClick={() => setFontSize(option.value)}
-                className="flex-1 text-xs"
-                role="radio"
-                aria-checked={fontSize === option.value}
-              >
-                {t.accessibility[option.labelKey]}
+              <Button key={option.value} variant={fontSize === option.value ? "default" : "outline"} size="sm" onClick={() => setFontSize(option.value)} className="flex-1 text-xs" role="radio" aria-checked={fontSize === option.value}>
+                {option.label}
               </Button>
             ))}
           </div>
         </div>
-        
+
         <DropdownMenuSeparator />
-        
-        {/* High Contrast */}
+
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center gap-2">
             <Contrast className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
             <div>
-              <Label htmlFor="high-contrast" className="text-sm font-medium cursor-pointer">
-                {t.accessibility.highContrast}
-              </Label>
-              <p className="text-xs text-muted-foreground">
-                {t.accessibility.highContrastDescription}
-              </p>
+              <Label htmlFor="high-contrast" className="cursor-pointer text-sm font-medium">Alto contraste</Label>
+              <p className="text-xs text-muted-foreground">Aumenta o contraste visual da interface.</p>
             </div>
           </div>
-          <Switch
-            id="high-contrast"
-            checked={highContrast}
-            onCheckedChange={setHighContrast}
-            aria-describedby="high-contrast-desc"
-          />
+          <Switch id="high-contrast" checked={highContrast} onCheckedChange={setHighContrast} />
         </div>
-        
+
         <DropdownMenuSeparator />
-        
-        {/* Reduced Motion */}
+
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
             <div>
-              <Label htmlFor="reduced-motion" className="text-sm font-medium cursor-pointer">
-                {t.accessibility.reducedMotion}
-              </Label>
-              <p className="text-xs text-muted-foreground">
-                {t.accessibility.reducedMotionDescription}
-              </p>
+              <Label htmlFor="reduced-motion" className="cursor-pointer text-sm font-medium">Reduzir animações</Label>
+              <p className="text-xs text-muted-foreground">Diminui movimentos e transições da tela.</p>
             </div>
           </div>
-          <Switch
-            id="reduced-motion"
-            checked={reducedMotion}
-            onCheckedChange={setReducedMotion}
-            aria-describedby="reduced-motion-desc"
-          />
+          <Switch id="reduced-motion" checked={reducedMotion} onCheckedChange={setReducedMotion} />
         </div>
-        
+
         <DropdownMenuSeparator />
-        
-        {/* Reset */}
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          onClick={resetPreferences}
-          className="w-full mt-2 text-muted-foreground hover:text-foreground"
-        >
-          <RotateCcw className="h-4 w-4 mr-2" aria-hidden="true" />
-          {t.accessibility.resetPreferences}
+
+        <Button variant="ghost" size="sm" onClick={resetPreferences} className="mt-2 w-full text-muted-foreground hover:text-foreground">
+          <RotateCcw className="mr-2 h-4 w-4" aria-hidden="true" />
+          Restaurar preferências
         </Button>
       </DropdownMenuContent>
     </DropdownMenu>
