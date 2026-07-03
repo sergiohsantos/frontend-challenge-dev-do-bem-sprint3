@@ -26,7 +26,7 @@ export function HeroSection() {
         <div className="tdb-reveal">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-2 text-sm font-semibold shadow-lg shadow-primary/20 backdrop-blur">
             <Heart className="h-4 w-4 text-accent" aria-hidden="true" />
-            Plataforma social com experiência de produto premium
+            Tecnologia que aproxima pessoas, consultas e cuidado
           </div>
 
           <h1 className="max-w-5xl text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] sm:text-5xl lg:text-7xl">
@@ -105,7 +105,7 @@ export function HeroSection() {
 
           <div className="absolute -bottom-5 left-4 hidden rounded-2xl border border-primary-foreground/20 bg-primary-foreground/12 px-4 py-3 text-sm font-bold text-primary-foreground shadow-2xl backdrop-blur md:flex md:items-center md:gap-2">
             <Sparkles className="h-4 w-4 text-accent" aria-hidden="true" />
-            Experiência desenhada para orientar, não confundir.
+            Clareza para beneficiários, voluntários e equipe TDB.
           </div>
         </div>
       </div>
