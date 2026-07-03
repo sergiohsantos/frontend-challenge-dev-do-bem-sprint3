@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
+import { VolunteerPageHero } from "@/components/dashboard/volunteer-page-hero"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { DashboardSkeleton } from "@/components/ui/page-loader"
 import { AlertBanner } from "@/components/ui/alert-banner"
-import { ArrowLeft, Bell, Mail, Shield, Loader2, Save } from "lucide-react"
+import { Bell, Mail, Shield, Loader2, Save, Settings, CalendarCheck2 } from "lucide-react"
 import { apiFetch } from "@/lib/api"
 import { getToken, getUser } from "@/lib/auth"
 
@@ -80,6 +81,16 @@ function mapFormToApi(data: VolunteerSettingsForm): VolunteerSettingsApi {
   }
 }
 
+const notificationOptions: Array<[keyof VolunteerSettingsForm, string, string]> = [
+  ["emailNotifications", "Notificações por e-mail", "Receba atualizações importantes por e-mail."],
+  ["smsNotifications", "Notificações por SMS", "Receba avisos urgentes por SMS."],
+  ["pushNotifications", "Notificações push", "Seja avisado diretamente no navegador."],
+  ["appointmentReminders", "Lembretes de agenda", "Receba alertas sobre consultas e horários."],
+  ["newPatientAlerts", "Novos pacientes", "Seja notificado quando um caso for atribuído a você."],
+  ["approvalUpdates", "Atualizações de aprovações", "Receba avisos sobre suas solicitações de procedimento."],
+  ["systemUpdates", "Atualizações do sistema", "Receba comunicados sobre novidades e manutenção."],
+]
+
 export default function VoluntarioConfiguracoesPage() {
   const navigate = useNavigate()
   const [settings, setSettings] = useState<VolunteerSettingsForm>(defaultSettings)
@@ -100,8 +111,8 @@ export default function VoluntarioConfiguracoesPage() {
 
         const data = await apiFetch<VolunteerSettingsApi>("/api/volunteers/me/settings", {}, token)
         setSettings(mapApiToForm(data))
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Erro ao carregar configurações")
+      } catch {
+        setError("Não foi possível carregar suas configurações agora. Tente novamente em instantes.")
       } finally {
         setIsLoading(false)
       }
@@ -116,15 +127,11 @@ export default function VoluntarioConfiguracoesPage() {
       const token = getToken()
       if (!token) return
 
-      await apiFetch("/api/volunteers/me/settings", {
-        method: "PUT",
-        body: JSON.stringify(mapFormToApi(settings)),
-      }, token)
-
-      setSuccess("Configurações salvas com sucesso!")
+      await apiFetch("/api/volunteers/me/settings", { method: "PUT", body: JSON.stringify(mapFormToApi(settings)) }, token)
+      setSuccess("Configurações salvas com sucesso.")
       setTimeout(() => setSuccess(null), 3000)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro ao salvar configurações")
+    } catch {
+      setError("Não foi possível salvar suas configurações agora.")
     } finally {
       setIsSaving(false)
     }
@@ -134,15 +141,13 @@ export default function VoluntarioConfiguracoesPage() {
     setSettings((prev) => ({ ...prev, [key]: !prev[key] }))
   }
 
+  const enabledNotifications = notificationOptions.filter(([key]) => settings[key]).length
+
   if (isLoading) {
     return (
       <div className="flex min-h-screen flex-col bg-background">
         <DashboardHeader userName={user?.full_name || "Voluntário"} userType="voluntario" notificationCount={0} />
-        <main className="flex-1 py-6 lg:py-8">
-          <div className="container mx-auto px-4">
-            <DashboardSkeleton />
-          </div>
-        </main>
+        <main className="flex-1 py-6 lg:py-8"><div className="container mx-auto px-4"><DashboardSkeleton /></div></main>
       </div>
     )
   }
@@ -151,75 +156,76 @@ export default function VoluntarioConfiguracoesPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <DashboardHeader userName={user?.full_name || "Voluntário"} userType="voluntario" notificationCount={0} />
       <main className="flex-1 py-6 lg:py-8">
-        <div className="container mx-auto max-w-3xl px-4">
-          <div className="mb-4 flex items-center justify-between">
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/dashboard/voluntario">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Voltar
-              </Link>
-            </Button>
-            <Button onClick={handleSave} disabled={isSaving}>
-              {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-              Salvar
-            </Button>
-          </div>
+        <div className="container mx-auto max-w-5xl px-4">
+          <VolunteerPageHero
+            eyebrow="Configurações"
+            title="Ajuste como a plataforma acompanha sua rotina."
+            description="Defina preferências de comunicação, lembretes e comportamento da agenda sem alterar regras do atendimento."
+            icon={<Settings className="h-4 w-4" aria-hidden="true" />}
+            primaryAction={(
+              <Button size="lg" onClick={handleSave} disabled={isSaving} className="h-14 rounded-full bg-accent text-base font-black text-accent-foreground hover:bg-accent/90">
+                {isSaving ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Save className="mr-2 h-5 w-5" />}
+                Salvar configurações
+              </Button>
+            )}
+            meta={(
+              <>
+                <span className="rounded-full bg-primary-foreground/10 px-3 py-1 font-semibold">{enabledNotifications} alerta(s) ativos</span>
+                <span className="rounded-full bg-primary-foreground/10 px-3 py-1 font-semibold">Agenda {settings.autoConfirm ? "com" : "sem"} confirmação automática</span>
+              </>
+            )}
+          />
 
-          {error ? <AlertBanner type="error" title="Erro" message={error} dismissible onDismiss={() => setError(null)} className="mb-6" /> : null}
+          {error ? <AlertBanner type="error" title="Atenção" message={error} dismissible onDismiss={() => setError(null)} className="mb-6" /> : null}
           {success ? <AlertBanner type="success" title="Sucesso" message={success} dismissible onDismiss={() => setSuccess(null)} className="mb-6" /> : null}
 
-          <div className="space-y-6">
-            <Card>
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+            <Card className="tdb-polished-card rounded-[2rem] shadow-xl shadow-primary/5">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Bell className="h-5 w-5 text-primary" />Notificações</CardTitle>
+                <CardTitle className="flex items-center gap-2 text-2xl font-black"><Bell className="h-6 w-6 text-primary" />Notificações</CardTitle>
                 <CardDescription>Controle os alertas enviados para seu perfil.</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                {[
-                  ["emailNotifications", "Notificações por e-mail", "Receba atualizações importantes por e-mail"],
-                  ["smsNotifications", "Notificações por SMS", "Receba avisos urgentes por SMS"],
-                  ["pushNotifications", "Notificações push", "Seja avisado diretamente no navegador"],
-                  ["appointmentReminders", "Lembretes de agenda", "Receba alertas sobre consultas e horários"],
-                  ["newPatientAlerts", "Novos pacientes", "Seja notificado quando um caso for atribuído a você"],
-                  ["approvalUpdates", "Atualizações de aprovações", "Receba avisos sobre suas solicitações de procedimento"],
-                  ["systemUpdates", "Atualizações do sistema", "Receba comunicados sobre novidades e manutenção"],
-                ].map(([key, title, description]) => (
-                  <div key={key} className="flex items-center justify-between">
+              <CardContent className="space-y-4">
+                {notificationOptions.map(([key, title, description]) => (
+                  <div key={key} className="flex items-center justify-between gap-4 rounded-2xl border border-border bg-card p-4">
                     <div className="space-y-0.5">
-                      <Label htmlFor={key}>{title}</Label>
-                      <p className="text-sm text-muted-foreground">{description}</p>
+                      <Label htmlFor={key} className="font-black text-foreground">{title}</Label>
+                      <p className="text-sm leading-6 text-muted-foreground">{description}</p>
                     </div>
-                    <Switch id={key} checked={settings[key as keyof VolunteerSettingsForm] as boolean} onCheckedChange={() => handleToggle(key as keyof VolunteerSettingsForm)} />
+                    <Switch id={key} checked={settings[key] as boolean} onCheckedChange={() => handleToggle(key)} />
                   </div>
                 ))}
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Shield className="h-5 w-5 text-primary" />Agenda e preferências</CardTitle>
-                <CardDescription>Defina comportamentos básicos do seu fluxo de agenda.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="autoConfirm">Confirmação automática</Label>
-                    <p className="text-sm text-muted-foreground">Quando ativado, simplifica a confirmação do seu lado para novos agendamentos.</p>
+            <div className="space-y-6">
+              <Card className="tdb-polished-card rounded-[2rem] shadow-xl shadow-primary/5">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-xl font-black"><CalendarCheck2 className="h-5 w-5 text-primary" />Agenda e preferências</CardTitle>
+                  <CardDescription>Defina comportamentos básicos do fluxo de agenda.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between gap-4 rounded-2xl border border-border p-4">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="autoConfirm" className="font-black text-foreground">Confirmação automática</Label>
+                      <p className="text-sm leading-6 text-muted-foreground">Quando ativado, simplifica a confirmação do seu lado para novos agendamentos.</p>
+                    </div>
+                    <Switch id="autoConfirm" checked={settings.autoConfirm} onCheckedChange={() => handleToggle("autoConfirm")} />
                   </div>
-                  <Switch id="autoConfirm" checked={settings.autoConfirm} onCheckedChange={() => handleToggle("autoConfirm")} />
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Mail className="h-5 w-5 text-primary" />Comunicação</CardTitle>
-                <CardDescription>Suas preferências são usadas pela plataforma nas próximas interações.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">Use o módulo de mensagens e notificações para acompanhar casos, pacientes e aprovações em andamento.</p>
-              </CardContent>
-            </Card>
+              <Card className="tdb-polished-card rounded-[2rem] shadow-xl shadow-primary/5">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-xl font-black"><Mail className="h-5 w-5 text-primary" />Comunicação</CardTitle>
+                  <CardDescription>Preferências usadas nas próximas interações.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4 text-sm leading-7 text-muted-foreground">
+                  <p>Use mensagens e notificações para acompanhar casos, pacientes e aprovações em andamento.</p>
+                  <div className="rounded-2xl border border-primary/10 bg-primary/5 p-4"><Shield className="mb-2 h-5 w-5 text-primary" /><p>As configurações respeitam os canais disponíveis no backend atual e não criam integrações novas.</p></div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </main>
