@@ -10,7 +10,6 @@ import { Heart, User, Users, Eye, EyeOff, Phone, ArrowLeft, LogIn, Loader2 } fro
 import { HelpButton } from "@/components/layout/help-button"
 import { AlertBanner } from "@/components/ui/alert-banner"
 import { useI18n } from "@/lib/i18n"
-import { LanguageSwitcher } from "@/components/accessibility/language-switcher"
 import { AccessibilityPanel } from "@/components/accessibility/accessibility-panel"
 import { apiFetch, normalizeDigits, normalizeEmail, type LoginPayload, type LoginResponse } from "@/lib/api"
 import { saveAuth, getRedirectPath, normalizeRole } from "@/lib/auth"
@@ -62,7 +61,6 @@ export default function LoginPage() {
         body: JSON.stringify(payload),
       })
 
-      // Normalize role before saving and redirecting
       const normalizedRole = normalizeRole(response.user.role)
       const userWithNormalizedRole = { ...response.user, role: normalizedRole }
 
@@ -80,7 +78,6 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      {/* Header */}
       <header className="border-b border-border bg-card">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link to="/" className="flex items-center gap-2" aria-label={t.header.logoAlt}>
@@ -91,7 +88,6 @@ export default function LoginPage() {
           </Link>
           <div className="flex items-center gap-2">
             <AccessibilityPanel />
-            <LanguageSwitcher />
             <Link 
               to="/"
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring rounded ml-2"
@@ -103,10 +99,8 @@ export default function LoginPage() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="flex flex-1 items-center justify-center px-4 py-8 sm:py-12">
         <div className="w-full max-w-md">
-          {/* Logo & Title */}
           <div className="mb-6 text-center sm:mb-8">
             <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary sm:mb-4 sm:h-20 sm:w-20">
               <Heart className="h-8 w-8 text-primary-foreground sm:h-10 sm:w-10" aria-hidden="true" />
@@ -119,7 +113,6 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* Login Card */}
           <Card className="shadow-sm">
             <CardHeader className="space-y-1 px-4 pb-3 pt-4 sm:px-6 sm:pb-4 sm:pt-6">
               <CardTitle className="text-lg sm:text-xl">{t.login.title}</CardTitle>
@@ -308,7 +301,6 @@ export default function LoginPage() {
                 </form>
               </Tabs>
 
-              {/* Help Link */}
               <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4">
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
@@ -318,7 +310,6 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              {/* Register Link */}
               <div className="mt-6 text-center">
                 <p className="text-sm text-muted-foreground">
                   {t.login.noAccount}
