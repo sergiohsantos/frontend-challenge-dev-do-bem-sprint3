@@ -27,27 +27,29 @@ export function VolunteerPageHero({
   meta,
 }: VolunteerPageHeroProps) {
   return (
-    <section className="tdb-premium-shell relative mb-8 overflow-hidden rounded-[2.5rem] bg-primary p-6 text-primary-foreground shadow-2xl shadow-primary/20 lg:p-8">
+    <section className="tdb-premium-shell relative mb-8 min-h-[21.5rem] overflow-hidden rounded-[2.5rem] bg-primary p-6 text-primary-foreground shadow-2xl shadow-primary/20 lg:p-8">
       <div className="tdb-orb -left-16 top-4 h-56 w-56 bg-secondary" aria-hidden="true" />
       <div className="tdb-orb tdb-orb-delayed -right-16 bottom-0 h-64 w-64 bg-accent" aria-hidden="true" />
-      <div className="relative flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between">
+      <div className="relative grid h-full gap-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:justify-between">
         <div className="max-w-3xl">
-          <Button variant="ghost" size="sm" asChild className="mb-5 -ml-2 rounded-full text-primary-foreground/86 hover:bg-primary-foreground/10 hover:text-primary-foreground">
-            <Link to={backTo}>
-              <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
-              {backLabel}
-            </Link>
-          </Button>
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary-foreground/15 bg-primary-foreground/10 px-4 py-2 text-sm font-black uppercase tracking-[0.18em] text-accent">
-            {icon}
-            {eyebrow}
+          <div className="mb-6 flex flex-wrap items-center gap-2">
+            <Button variant="ghost" size="sm" asChild className="h-10 rounded-full px-0 pr-3 text-primary-foreground/86 hover:bg-primary-foreground/10 hover:px-3 hover:text-primary-foreground">
+              <Link to={backTo}>
+                <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
+                {backLabel}
+              </Link>
+            </Button>
+            <div className="inline-flex h-10 items-center gap-2 rounded-full border border-primary-foreground/15 bg-primary-foreground/10 px-4 text-sm font-black uppercase tracking-[0.18em] text-accent">
+              {icon}
+              {eyebrow}
+            </div>
           </div>
-          <h1 className="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">{title}</h1>
-          <p className="mt-4 max-w-2xl text-base leading-8 text-primary-foreground/84">{description}</p>
-          {meta ? <div className="mt-5 flex flex-wrap gap-2 text-sm text-primary-foreground/82">{meta}</div> : null}
+          <h1 className="max-w-3xl text-3xl font-black leading-[1.02] tracking-[-0.04em] sm:text-4xl lg:text-5xl">{title}</h1>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-primary-foreground/84">{description}</p>
+          {meta ? <div className="mt-6 flex flex-wrap items-center gap-2 text-sm text-primary-foreground/82">{meta}</div> : null}
         </div>
         {(primaryAction || secondaryAction) && (
-          <div className="grid min-w-full gap-3 sm:min-w-[420px] sm:grid-cols-2 lg:min-w-[390px]">
+          <div className="flex w-full flex-wrap gap-3 lg:w-auto lg:min-w-[360px] lg:justify-end">
             {primaryAction}
             {secondaryAction}
           </div>
