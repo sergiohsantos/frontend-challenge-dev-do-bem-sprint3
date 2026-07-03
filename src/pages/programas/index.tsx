@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Link } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
-import { Smile, Brain, Heart, Users, CheckCircle2, Award, Sparkles, Loader2 } from "lucide-react"
+import { Smile, Brain, Heart, Users, CheckCircle2, Award, Sparkles, Loader2, ArrowRight } from "lucide-react"
 import {
   Carousel,
   CarouselContent,
