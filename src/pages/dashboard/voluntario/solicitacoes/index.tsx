@@ -141,7 +141,7 @@ export default function SolicitacoesPage() {
 
           <div className="mb-6 grid gap-4 md:grid-cols-4">
             <SummaryCard title="Pendentes" value={pendingRequests.length} icon={Clock} tone="warning" />
-            <SummaryCard title="Aprovadas" value={approvedRequests.length} icon={CheckCircle2} tone="success" />
+            <SummaryCard title="Aprovadas" value={approvedRequests.length} icon={ShieldCheck} tone="success" />
             <SummaryCard title="Em ajuste" value={actionRequiredRequests.length} icon={AlertTriangle} tone="accent" />
             <SummaryCard title="Rejeitadas" value={rejectedRequests.length} icon={XCircle} tone="danger" />
           </div>
