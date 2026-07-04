@@ -227,6 +227,14 @@ export default function SolicitacaoDetailPage() {
                     <span>{request.beneficiario}</span>
                   </div>
 
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className={`rounded-full ${prioridade.color}`}>{prioridade.label}</Badge>
+                    <Badge variant="outline" className={`rounded-full ${status.color}`}>
+                      <StatusIcon className="mr-1 h-3 w-3" />
+                      {status.label}
+                    </Badge>
+                  </div>
+
                   <Separator />
 
                   {request.justificativa && (
