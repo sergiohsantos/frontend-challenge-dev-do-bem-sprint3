@@ -26,11 +26,11 @@ body {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image:
-    linear-gradient(rgba(26, 58, 92, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 58, 92, 0.045) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: linear-gradient(to bottom, black 0%, transparent 78%);
+  background:
+    radial-gradient(circle at 12% 12%, rgba(91, 191, 186, 0.30), transparent 20rem),
+    radial-gradient(circle at 86% 34%, rgba(255, 255, 255, 0.08), transparent 18rem),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07), transparent 58%);
+  opacity: 0.95;
 }
 
 .tdb-orb {
@@ -92,213 +92,35 @@ body {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 18px 40px rgba(0,0,0,0.12);
 }
 
+.tdb-volunteer-hero-actions > a,
+.tdb-volunteer-hero-actions > button {
+  height: 3.5rem;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.tdb-volunteer-hero-meta > span {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 255, 255, 0.10);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
 /* Logged area width alignment */
 main > .container.max-w-7xl,
 .flex.min-h-screen.flex-col.bg-background > main > .container,
 .flex.min-h-screen.flex-col.bg-secondary > main > .container {
   max-width: 1536px !important;
-}
-
-/* Agenda legacy screen: visual alignment without touching React logic */
-.flex.min-h-screen.flex-col.bg-secondary {
-  background:
-    radial-gradient(circle at 8% 0%, rgba(91, 191, 186, 0.14), transparent 28rem),
-    radial-gradient(circle at 92% 8%, rgba(245, 132, 31, 0.10), transparent 26rem),
-    hsl(var(--background));
-}
-
-.bg-secondary main > .container > .mb-4,
-.bg-secondary main > .container > nav,
-.bg-secondary main > .container > [aria-label="breadcrumb"] {
-  display: none;
-}
-
-.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  min-height: 19rem;
-  align-items: center;
-  border-radius: 2.5rem;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: hsl(var(--primary-foreground));
-  background:
-    radial-gradient(circle at 0% 0%, rgba(91, 191, 186, 0.55), transparent 19rem),
-    radial-gradient(circle at 92% 55%, rgba(245, 132, 31, 0.45), transparent 17rem),
-    linear-gradient(135deg, hsl(var(--primary)), #0a3a62 64%, #17364f);
-  box-shadow: 0 30px 72px rgba(16, 40, 66, 0.18);
-}
-
-.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4::before {
-  pointer-events: none;
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: linear-gradient(to bottom, black 0%, transparent 82%);
-}
-
-.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4::after {
-  pointer-events: none;
-  content: "";
-  position: absolute;
-  right: 2.5rem;
-  bottom: -4rem;
-  width: 21rem;
-  height: 21rem;
-  border-radius: 9999px;
-  background: rgba(245, 132, 31, 0.38);
-  filter: blur(48px);
-  opacity: 0.85;
-}
-
-.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:first-child {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-}
-
-.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:first-child::before {
-  display: inline-flex;
-  width: fit-content;
-  margin-bottom: 1.25rem;
-  padding: 0.55rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.10);
-  color: hsl(var(--accent));
-  content: "AGENDA DO VOLUNTÁRIO";
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
-}
-
-.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 h1 {
-  max-width: 44rem;
-  color: hsl(var(--primary-foreground));
-  font-size: clamp(2.25rem, 4vw, 4.2rem);
-  font-weight: 900;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-}
-
-.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 p {
-  max-width: 42rem;
-  color: rgba(255, 255, 255, 0.82);
-  line-height: 1.75;
-  font-size: 1rem;
-}
-
-.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child {
-  position: relative;
-  z-index: 2;
-}
-
-.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child a {
-  height: 3.5rem;
-  padding-inline: 1.5rem;
-  border-radius: 9999px;
-  background: hsl(var(--accent));
-  color: hsl(var(--accent-foreground));
-  font-weight: 900;
-  box-shadow: 0 18px 44px rgba(245, 132, 31, 0.25);
-}
-
-.bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 > div:last-child a:hover {
-  background: hsl(var(--accent) / 0.92);
-}
-
-.bg-secondary main > .container > .mb-6,
-.bg-secondary main .rounded-lg.border,
-.bg-secondary main .rounded-2xl.border,
-.bg-secondary main .overflow-hidden.border,
-.bg-secondary main .grid.gap-4 > .rounded-lg {
-  border-radius: 2rem;
-  border-color: hsl(var(--border) / 0.75);
-  box-shadow: 0 18px 52px rgba(16, 40, 66, 0.08);
-}
-
-.bg-secondary main > .container > .mb-6 {
-  border: 1px solid hsl(var(--border) / 0.75);
-  background: hsl(var(--card));
-  padding: 0.4rem;
-}
-
-.bg-secondary main [role="tablist"] {
-  min-height: 3rem;
-  border-radius: 9999px;
-  background: hsl(var(--muted));
-  padding: 0.25rem;
-}
-
-.bg-secondary main [role="tab"] {
-  border-radius: 9999px;
-  padding-inline: 1rem;
-  font-weight: 800;
-}
-
-.bg-secondary main [data-state="active"] {
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  box-shadow: 0 12px 28px rgba(16, 40, 66, 0.16);
-}
-
-.bg-secondary main button,
-.bg-secondary main a[data-slot="button"] {
-  border-radius: 9999px;
-}
-
-.bg-secondary main .grid.grid-cols-7 button {
-  min-height: 7rem;
-  border-radius: 1.25rem;
-  background-color: hsl(var(--card));
-  border-color: hsl(var(--border) / 0.72);
-  padding: 0.75rem;
-}
-
-.bg-secondary main .grid.grid-cols-7 button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 14px 32px rgba(16, 40, 66, 0.10);
-}
-
-.bg-secondary main .grid.grid-cols-7 button .truncate {
-  border-radius: 0.85rem;
-  border: 1px solid hsl(var(--border) / 0.45);
-  background: hsl(var(--background) / 0.88);
-  font-weight: 700;
-}
-
-.bg-secondary main .hidden.border-b,
-.bg-secondary main .border-b.bg-muted\/40 {
-  background: hsl(var(--primary) / 0.06);
-}
-
-.bg-secondary main .hidden.border-b {
-  border-top-left-radius: 2rem;
-  border-top-right-radius: 2rem;
-  color: hsl(var(--primary));
-  letter-spacing: 0.09em;
-}
-
-.bg-secondary main .rounded-lg.border.bg-card.shadow-sm,
-.bg-secondary main .space-y-3 > .rounded-2xl,
-.bg-secondary main .space-y-4 > .rounded-2xl,
-.bg-secondary main .space-y-6 > section .space-y-3 > * {
-  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
-}
-
-.bg-secondary main .rounded-lg.border.bg-card.shadow-sm:hover,
-.bg-secondary main .space-y-3 > .rounded-2xl:hover,
-.bg-secondary main .space-y-4 > .rounded-2xl:hover,
-.bg-secondary main .space-y-6 > section .space-y-3 > *:hover {
-  transform: translateY(-2px);
-  border-color: hsl(var(--primary) / 0.26);
-  box-shadow: 0 18px 44px rgba(16, 40, 66, 0.12);
 }
 
 @keyframes tdb-float {
@@ -321,19 +143,6 @@ main > .container.max-w-7xl,
   to { transform: translateX(120%); }
 }
 
-@media (max-width: 767px) {
-  .bg-secondary main > .container > .mb-8.flex.flex-col.gap-4 {
-    min-height: auto;
-    padding: 1.5rem;
-    border-radius: 2rem;
-  }
-
-  .bg-secondary main .grid.grid-cols-7 button {
-    min-height: 4.5rem;
-    padding: 0.45rem;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .tdb-orb,
@@ -342,12 +151,7 @@ main > .container.max-w-7xl,
   .tdb-polished-card:hover::after {
     animation: none !important;
   }
-  .tdb-polished-card:hover,
-  .bg-secondary main .grid.grid-cols-7 button:hover,
-  .bg-secondary main .rounded-lg.border.bg-card.shadow-sm:hover,
-  .bg-secondary main .space-y-3 > .rounded-2xl:hover,
-  .bg-secondary main .space-y-4 > .rounded-2xl:hover,
-  .bg-secondary main .space-y-6 > section .space-y-3 > *:hover {
+  .tdb-polished-card:hover {
     transform: none;
   }
 }
