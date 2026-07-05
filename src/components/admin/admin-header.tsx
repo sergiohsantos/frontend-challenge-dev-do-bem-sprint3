@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { apiFetch } from "@/lib/api"
 import { clearAuth, getToken, getUser } from "@/lib/auth"
+import { useTheme } from "@/components/theme-provider"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,7 +36,7 @@ export function AdminHeader({ onMenuClick }: AdminHeaderProps) {
   const navigate = useNavigate()
   const location = useLocation()
   const pathname = location.pathname
-  const [darkMode, setDarkMode] = useState(false)
+  const { resolvedTheme, setTheme } = useTheme()
   const [adminName, setAdminName] = useState("Administrador")
   const [adminEmail, setAdminEmail] = useState("admin@turmadobem.org.br")
   const [notifications, setNotifications] = useState<HeaderNotification[]>([])
@@ -80,8 +81,7 @@ export function AdminHeader({ onMenuClick }: AdminHeaderProps) {
   }, [pathname, loadNotifications])
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode)
-    document.documentElement.classList.toggle("dark")
+    setTheme(resolvedTheme === "dark" ? "light" : "dark")
   }
 
   const handleLogout = () => {
@@ -155,7 +155,7 @@ export function AdminHeader({ onMenuClick }: AdminHeaderProps) {
 
       <div className="flex items-center gap-2">
         <Button variant="ghost" size="icon" onClick={toggleDarkMode} className="rounded-full">
-          {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           <span className="sr-only">Alternar tema</span>
         </Button>
 
