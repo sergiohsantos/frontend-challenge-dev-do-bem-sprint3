@@ -93,7 +93,9 @@ body {
 }
 
 .tdb-volunteer-hero-actions > a,
-.tdb-volunteer-hero-actions > button {
+.tdb-volunteer-hero-actions > button,
+.tdb-beneficiary-hero-actions > a,
+.tdb-beneficiary-hero-actions > button {
   height: 3.5rem;
   min-height: 3.5rem;
   align-items: center;
@@ -105,7 +107,8 @@ body {
   white-space: nowrap;
 }
 
-.tdb-volunteer-hero-meta > span {
+.tdb-volunteer-hero-meta > span,
+.tdb-beneficiary-hero-meta > span {
   display: inline-flex;
   min-height: 1.75rem;
   align-items: center;
@@ -145,7 +148,9 @@ main > .container.max-w-7xl,
 
 @media (max-width: 767px) {
   .tdb-volunteer-hero-actions > a,
-  .tdb-volunteer-hero-actions > button {
+  .tdb-volunteer-hero-actions > button,
+  .tdb-beneficiary-hero-actions > a,
+  .tdb-beneficiary-hero-actions > button {
     width: 100%;
   }
 }
