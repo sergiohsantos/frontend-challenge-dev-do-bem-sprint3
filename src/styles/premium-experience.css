@@ -146,7 +146,8 @@ main > .container.max-w-7xl,
   padding: 1.5rem;
 }
 
-.tdb-admin-sidebar + div > main > .space-y-6 > :first-child {
+.tdb-admin-sidebar + div > main > .space-y-6 > :first-child,
+.tdb-admin-sidebar + div > main > .mb-6:has(h1) {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -163,7 +164,9 @@ main > .container.max-w-7xl,
 }
 
 .tdb-admin-sidebar + div > main > .space-y-6 > :first-child::before,
-.tdb-admin-sidebar + div > main > .space-y-6 > :first-child::after {
+.tdb-admin-sidebar + div > main > .space-y-6 > :first-child::after,
+.tdb-admin-sidebar + div > main > .mb-6:has(h1)::before,
+.tdb-admin-sidebar + div > main > .mb-6:has(h1)::after {
   pointer-events: none;
   content: "";
   position: absolute;
@@ -173,7 +176,8 @@ main > .container.max-w-7xl,
   opacity: 0.60;
 }
 
-.tdb-admin-sidebar + div > main > .space-y-6 > :first-child::before {
+.tdb-admin-sidebar + div > main > .space-y-6 > :first-child::before,
+.tdb-admin-sidebar + div > main > .mb-6:has(h1)::before {
   left: -5rem;
   top: -2rem;
   width: 14rem;
@@ -181,7 +185,8 @@ main > .container.max-w-7xl,
   background: hsl(var(--secondary));
 }
 
-.tdb-admin-sidebar + div > main > .space-y-6 > :first-child::after {
+.tdb-admin-sidebar + div > main > .space-y-6 > :first-child::after,
+.tdb-admin-sidebar + div > main > .mb-6:has(h1)::after {
   right: -4rem;
   bottom: -3rem;
   width: 16rem;
@@ -189,7 +194,8 @@ main > .container.max-w-7xl,
   background: hsl(var(--accent));
 }
 
-.tdb-admin-sidebar + div > main > .space-y-6 > :first-child h1 {
+.tdb-admin-sidebar + div > main > .space-y-6 > :first-child h1,
+.tdb-admin-sidebar + div > main > .mb-6:has(h1) h1 {
   max-width: 52rem;
   color: hsl(var(--primary-foreground));
   font-size: clamp(2rem, 4vw, 3.25rem);
@@ -198,20 +204,24 @@ main > .container.max-w-7xl,
   font-weight: 900;
 }
 
-.tdb-admin-sidebar + div > main > .space-y-6 > :first-child p {
+.tdb-admin-sidebar + div > main > .space-y-6 > :first-child p,
+.tdb-admin-sidebar + div > main > .mb-6:has(h1) p {
   max-width: 44rem;
   color: rgba(255, 255, 255, 0.82);
   line-height: 1.85;
 }
 
 .tdb-admin-sidebar + div > main > .space-y-6 > :first-child button,
-.tdb-admin-sidebar + div > main > .space-y-6 > :first-child a[role="button"] {
+.tdb-admin-sidebar + div > main > .space-y-6 > :first-child a[role="button"],
+.tdb-admin-sidebar + div > main > .mb-6:has(h1) button,
+.tdb-admin-sidebar + div > main > .mb-6:has(h1) a[role="button"] {
   min-height: 2.75rem;
   border-radius: 9999px;
   font-weight: 900;
 }
 
-.tdb-admin-sidebar + div > main > .space-y-6 > :first-child [role="combobox"] {
+.tdb-admin-sidebar + div > main > .space-y-6 > :first-child [role="combobox"],
+.tdb-admin-sidebar + div > main > .mb-6:has(h1) [role="combobox"] {
   min-height: 2.75rem;
   border-radius: 9999px;
   border-color: rgba(255, 255, 255, 0.24);
@@ -234,6 +244,10 @@ main > .container.max-w-7xl,
   border-radius: 1.35rem;
 }
 
+.tdb-admin-sidebar + div > main .rounded-md {
+  border-radius: 1rem;
+}
+
 .tdb-admin-sidebar + div > main button:not([role="combobox"]),
 .tdb-admin-sidebar + div > main a[role="button"] {
   border-radius: 9999px;
@@ -244,6 +258,42 @@ main > .container.max-w-7xl,
 .tdb-admin-sidebar + div > main textarea,
 .tdb-admin-sidebar + div > main [role="combobox"] {
   border-radius: 1rem;
+}
+
+.tdb-admin-sidebar + div > main table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.tdb-admin-sidebar + div > main thead tr {
+  background: rgba(16, 40, 66, 0.035);
+}
+
+.tdb-admin-sidebar + div > main tbody tr {
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.tdb-admin-sidebar + div > main tbody tr:hover {
+  background: rgba(91, 191, 186, 0.08);
+}
+
+.tdb-admin-sidebar + div > main [role="tablist"] {
+  height: auto;
+  border-radius: 1.25rem;
+  padding: 0.25rem;
+}
+
+.tdb-admin-sidebar + div > main [role="tab"] {
+  border-radius: 9999px;
+  font-weight: 800;
+}
+
+.tdb-admin-sidebar + div > main [class*="bg-green-100"],
+.tdb-admin-sidebar + div > main [class*="bg-blue-100"],
+.tdb-admin-sidebar + div > main [class*="bg-yellow-100"],
+.tdb-admin-sidebar + div > main [class*="bg-gray-100"] {
+  border-radius: 9999px;
+  font-weight: 800;
 }
 
 @keyframes tdb-float {
@@ -278,13 +328,15 @@ main > .container.max-w-7xl,
     padding: 1rem;
   }
 
-  .tdb-admin-sidebar + div > main > .space-y-6 > :first-child {
+  .tdb-admin-sidebar + div > main > .space-y-6 > :first-child,
+  .tdb-admin-sidebar + div > main > .mb-6:has(h1) {
     min-height: 17rem;
     align-items: stretch;
     padding: 1.25rem;
   }
 
-  .tdb-admin-sidebar + div > main > .space-y-6 > :first-child > * {
+  .tdb-admin-sidebar + div > main > .space-y-6 > :first-child > *,
+  .tdb-admin-sidebar + div > main > .mb-6:has(h1) > * {
     width: 100%;
   }
 }
