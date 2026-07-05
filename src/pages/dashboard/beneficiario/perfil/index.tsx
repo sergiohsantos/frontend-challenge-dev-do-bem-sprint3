@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, type ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
 import { BeneficiaryPageHero } from "@/components/dashboard/beneficiary-page-hero"
@@ -310,6 +310,6 @@ function ProfileInput({ id, label, value, disabled, onChange, type = "text", cla
   )
 }
 
-function InfoRow({ icon, text }: { icon: React.ReactNode; text: string }) {
+function InfoRow({ icon, text }: { icon: ReactNode; text: string }) {
   return <div className="flex items-center gap-3 text-muted-foreground">{icon}<span>{text}</span></div>
 }
