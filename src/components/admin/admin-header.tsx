@@ -138,7 +138,7 @@ export function AdminHeader({ onMenuClick }: AdminHeaderProps) {
               <span className="sr-only">Abrir menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-72 max-w-[85vw] p-0">
+          <SheetContent side="left" className="tdb-admin-mobile-sheet w-72 max-w-[85vw] border-r-0 bg-[#102842] p-0 text-white">
             <SheetTitle className="sr-only">Menu de navegação</SheetTitle>
             <SheetDescription className="sr-only">Navegue pelas opções do painel administrativo</SheetDescription>
             <AdminSidebar variant="drawer" onNavigate={() => setMobileMenuOpen(false)} />
