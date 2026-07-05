@@ -147,6 +147,7 @@ main > .container.max-w-7xl,
 }
 
 .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1),
+.tdb-admin-sidebar + div > main.space-y-6 > div:has(h1),
 .tdb-admin-sidebar + div > main > .mb-6:has(h1) {
   position: relative;
   isolation: isolate;
@@ -165,6 +166,8 @@ main > .container.max-w-7xl,
 
 .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1)::before,
 .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1)::after,
+.tdb-admin-sidebar + div > main.space-y-6 > div:has(h1)::before,
+.tdb-admin-sidebar + div > main.space-y-6 > div:has(h1)::after,
 .tdb-admin-sidebar + div > main > .mb-6:has(h1)::before,
 .tdb-admin-sidebar + div > main > .mb-6:has(h1)::after {
   pointer-events: none;
@@ -177,6 +180,7 @@ main > .container.max-w-7xl,
 }
 
 .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1)::before,
+.tdb-admin-sidebar + div > main.space-y-6 > div:has(h1)::before,
 .tdb-admin-sidebar + div > main > .mb-6:has(h1)::before {
   left: -5rem;
   top: -2rem;
@@ -186,6 +190,7 @@ main > .container.max-w-7xl,
 }
 
 .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1)::after,
+.tdb-admin-sidebar + div > main.space-y-6 > div:has(h1)::after,
 .tdb-admin-sidebar + div > main > .mb-6:has(h1)::after {
   right: -4rem;
   bottom: -3rem;
@@ -195,6 +200,7 @@ main > .container.max-w-7xl,
 }
 
 .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1) h1,
+.tdb-admin-sidebar + div > main.space-y-6 > div:has(h1) h1,
 .tdb-admin-sidebar + div > main > .mb-6:has(h1) h1 {
   max-width: 52rem;
   color: hsl(var(--primary-foreground));
@@ -205,6 +211,7 @@ main > .container.max-w-7xl,
 }
 
 .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1) p,
+.tdb-admin-sidebar + div > main.space-y-6 > div:has(h1) p,
 .tdb-admin-sidebar + div > main > .mb-6:has(h1) p {
   max-width: 44rem;
   color: rgba(255, 255, 255, 0.82);
@@ -213,6 +220,8 @@ main > .container.max-w-7xl,
 
 .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1) button,
 .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1) a[role="button"],
+.tdb-admin-sidebar + div > main.space-y-6 > div:has(h1) button,
+.tdb-admin-sidebar + div > main.space-y-6 > div:has(h1) a[role="button"],
 .tdb-admin-sidebar + div > main > .mb-6:has(h1) button,
 .tdb-admin-sidebar + div > main > .mb-6:has(h1) a[role="button"] {
   min-height: 2.75rem;
@@ -221,6 +230,7 @@ main > .container.max-w-7xl,
 }
 
 .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1) [role="combobox"],
+.tdb-admin-sidebar + div > main.space-y-6 > div:has(h1) [role="combobox"],
 .tdb-admin-sidebar + div > main > .mb-6:has(h1) [role="combobox"] {
   min-height: 2.75rem;
   border-radius: 9999px;
@@ -329,6 +339,7 @@ main > .container.max-w-7xl,
   }
 
   .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1),
+  .tdb-admin-sidebar + div > main.space-y-6 > div:has(h1),
   .tdb-admin-sidebar + div > main > .mb-6:has(h1) {
     min-height: 17rem;
     align-items: stretch;
@@ -336,6 +347,7 @@ main > .container.max-w-7xl,
   }
 
   .tdb-admin-sidebar + div > main > .space-y-6 > div:has(h1) > *,
+  .tdb-admin-sidebar + div > main.space-y-6 > div:has(h1) > *,
   .tdb-admin-sidebar + div > main > .mb-6:has(h1) > * {
     width: 100%;
   }
