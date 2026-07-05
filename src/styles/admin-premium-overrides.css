@@ -1,0 +1,109 @@
+/* Admin page-specific refinements layered after premium-experience.css */
+.tdb-admin-sidebar + div > main.space-y-6 > section:has(h1) {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 15rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 2.5rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 1.5rem;
+  box-shadow: 0 26px 70px rgba(16, 40, 66, 0.20);
+}
+
+.tdb-admin-sidebar + div > main.space-y-6 > section:has(h1)::before,
+.tdb-admin-sidebar + div > main.space-y-6 > section:has(h1)::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 9999px;
+  filter: blur(34px);
+  opacity: 0.60;
+}
+
+.tdb-admin-sidebar + div > main.space-y-6 > section:has(h1)::before {
+  left: -5rem;
+  top: -2rem;
+  width: 14rem;
+  height: 14rem;
+  background: hsl(var(--secondary));
+}
+
+.tdb-admin-sidebar + div > main.space-y-6 > section:has(h1)::after {
+  right: -4rem;
+  bottom: -3rem;
+  width: 16rem;
+  height: 16rem;
+  background: hsl(var(--accent));
+}
+
+.tdb-admin-sidebar + div > main.space-y-6 > section:has(h1) h1 {
+  max-width: 52rem;
+  color: hsl(var(--primary-foreground));
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+}
+
+.tdb-admin-sidebar + div > main.space-y-6 > section:has(h1) p {
+  max-width: 44rem;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.85;
+}
+
+.tdb-admin-sidebar + div > main.space-y-6 > section:has(h1) button,
+.tdb-admin-sidebar + div > main.space-y-6 > section:has(h1) a[role="button"] {
+  min-height: 2.75rem;
+  border-radius: 9999px;
+  font-weight: 900;
+}
+
+.tdb-admin-sidebar + div > main.space-y-6 > section:has(h1) [role="combobox"] {
+  min-height: 2.75rem;
+  border-radius: 9999px;
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.10);
+  color: hsl(var(--primary-foreground));
+  font-weight: 800;
+}
+
+.tdb-admin-sidebar + div > main [class*="rounded-xl"],
+.tdb-admin-sidebar + div > main [class*="rounded-2xl"] {
+  box-shadow: none;
+}
+
+.tdb-admin-sidebar + div > main [class*="border-orange-100"] {
+  border-color: rgba(245, 132, 31, 0.22) !important;
+}
+
+.tdb-admin-sidebar + div > main [class*="border-primary/20"] {
+  border-color: rgba(26, 58, 92, 0.18) !important;
+}
+
+.tdb-admin-sidebar + div > main [class*="bg-muted/30"],
+.tdb-admin-sidebar + div > main [class*="bg-muted/40"] {
+  background: rgba(91, 191, 186, 0.07) !important;
+}
+
+.tdb-admin-sidebar + div > main [class*="border-dashed"] {
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+@media (max-width: 767px) {
+  .tdb-admin-sidebar + div > main.space-y-6 > section:has(h1) {
+    min-height: 17rem;
+    align-items: stretch;
+    padding: 1.25rem;
+  }
+
+  .tdb-admin-sidebar + div > main.space-y-6 > section:has(h1) > * {
+    width: 100%;
+  }
+}
