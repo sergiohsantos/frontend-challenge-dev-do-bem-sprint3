@@ -1,21 +1,12 @@
-/* Admin page-specific refinements layered after premium-experience.css */
-:root {
-  --tdb-admin-navy: #1a3a5c;
-  --tdb-admin-navy-deep: #102842;
-  --tdb-admin-teal: #5bbfba;
-  --tdb-admin-orange: #f5841f;
-  --tdb-admin-light-bg: #f6fbfc;
-  --tdb-admin-light-card: rgba(255, 255, 255, 0.94);
-  --tdb-admin-dark-bg: #071827;
-  --tdb-admin-dark-card: rgba(16, 40, 66, 0.86);
-}
+/* Admin refinements layered after premium-experience.css.
+   Keep Admin aligned with Volunteer/Beneficiary tokens: primary, secondary, accent, background and card. */
 
 .tdb-admin-sidebar {
   background:
-    radial-gradient(circle at 8% 8%, rgba(91, 191, 186, 0.34), transparent 18rem),
-    radial-gradient(circle at 88% 92%, rgba(245, 132, 31, 0.24), transparent 16rem),
-    linear-gradient(180deg, var(--tdb-admin-navy) 0%, var(--tdb-admin-navy-deep) 100%) !important;
-  color: #ffffff !important;
+    radial-gradient(circle at 8% 8%, color-mix(in oklch, var(--secondary) 34%, transparent), transparent 18rem),
+    radial-gradient(circle at 88% 92%, color-mix(in oklch, var(--accent) 24%, transparent), transparent 16rem),
+    var(--primary) !important;
+  color: var(--primary-foreground) !important;
 }
 
 .tdb-admin-sidebar a,
@@ -26,59 +17,45 @@
 }
 
 .tdb-admin-sidebar a[class*="bg-accent"] {
-  background: var(--tdb-admin-orange) !important;
-  color: #ffffff !important;
-  box-shadow: 0 16px 34px rgba(245, 132, 31, 0.24) !important;
+  background: var(--accent) !important;
+  color: var(--accent-foreground) !important;
+  box-shadow: 0 16px 34px color-mix(in oklch, var(--accent) 28%, transparent) !important;
 }
 
 .tdb-admin-sidebar a:not([class*="bg-accent"]) {
-  color: rgba(255, 255, 255, 0.78) !important;
+  color: color-mix(in oklch, var(--primary-foreground) 78%, transparent) !important;
 }
 
 .tdb-admin-sidebar a:not([class*="bg-accent"]):hover,
 .tdb-admin-sidebar button:hover {
-  background: rgba(255, 255, 255, 0.10) !important;
-  color: #ffffff !important;
+  background: color-mix(in oklch, var(--primary-foreground) 10%, transparent) !important;
+  color: var(--primary-foreground) !important;
 }
 
 .tdb-admin-mobile-sheet {
-  border-color: rgba(255, 255, 255, 0.12) !important;
-  background: var(--tdb-admin-navy-deep) !important;
-  color: #ffffff !important;
+  border-color: color-mix(in oklch, var(--primary-foreground) 12%, transparent) !important;
+  background: var(--primary) !important;
+  color: var(--primary-foreground) !important;
 }
 
 .tdb-admin-mobile-sheet > button {
-  color: #ffffff !important;
+  color: var(--primary-foreground) !important;
   opacity: 0.88;
 }
 
 .tdb-admin-sidebar + div {
   background:
-    radial-gradient(circle at 10% 0%, rgba(91, 191, 186, 0.18), transparent 28rem),
-    radial-gradient(circle at 94% 12%, rgba(245, 132, 31, 0.14), transparent 24rem),
-    linear-gradient(180deg, var(--tdb-admin-light-bg) 0%, #ffffff 48%, #f7fcfb 100%) !important;
-}
-
-.dark .tdb-admin-sidebar + div {
-  background:
-    radial-gradient(circle at 10% 0%, rgba(91, 191, 186, 0.18), transparent 24rem),
-    radial-gradient(circle at 94% 12%, rgba(245, 132, 31, 0.16), transparent 22rem),
-    linear-gradient(180deg, var(--tdb-admin-dark-bg) 0%, #0b2033 48%, #071827 100%) !important;
+    radial-gradient(circle at 10% 0%, color-mix(in oklch, var(--secondary) 18%, transparent), transparent 28rem),
+    radial-gradient(circle at 94% 12%, color-mix(in oklch, var(--accent) 14%, transparent), transparent 24rem),
+    linear-gradient(180deg, var(--background) 0%, var(--background) 48%, color-mix(in oklch, var(--secondary) 8%, var(--background)) 100%) !important;
 }
 
 .tdb-admin-sidebar + div > header {
-  border-color: rgba(16, 40, 66, 0.10) !important;
-  background: rgba(255, 255, 255, 0.88) !important;
-  color: #102842 !important;
-  box-shadow: 0 14px 45px rgba(16, 40, 66, 0.08) !important;
+  border-color: color-mix(in oklch, var(--border) 86%, transparent) !important;
+  background: color-mix(in oklch, var(--background) 88%, transparent) !important;
+  color: var(--foreground) !important;
+  box-shadow: 0 14px 45px color-mix(in oklch, var(--primary) 10%, transparent) !important;
   backdrop-filter: blur(18px);
-}
-
-.dark .tdb-admin-sidebar + div > header {
-  border-color: rgba(91, 191, 186, 0.16) !important;
-  background: rgba(16, 40, 66, 0.86) !important;
-  color: #f7fbfc !important;
-  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.28) !important;
 }
 
 .tdb-admin-sidebar + div > main.space-y-6 > section:has(h1),
@@ -94,13 +71,10 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 2.5rem;
-  background:
-    radial-gradient(circle at 8% 12%, rgba(91, 191, 186, 0.30), transparent 18rem),
-    radial-gradient(circle at 86% 34%, rgba(245, 132, 31, 0.20), transparent 16rem),
-    linear-gradient(135deg, var(--tdb-admin-navy) 0%, var(--tdb-admin-navy-deep) 100%) !important;
-  color: #ffffff !important;
+  background: var(--primary) !important;
+  color: var(--primary-foreground) !important;
   padding: 1.5rem;
-  box-shadow: 0 26px 70px rgba(16, 40, 66, 0.20);
+  box-shadow: 0 26px 70px color-mix(in oklch, var(--primary) 24%, transparent);
 }
 
 .tdb-admin-sidebar + div > main.space-y-6 > section:has(h1)::before,
@@ -117,7 +91,7 @@
   z-index: -1;
   border-radius: 9999px;
   filter: blur(34px);
-  opacity: 0.62;
+  opacity: 0.60;
 }
 
 .tdb-admin-sidebar + div > main.space-y-6 > section:has(h1)::before,
@@ -128,7 +102,7 @@
   top: -2rem;
   width: 14rem;
   height: 14rem;
-  background: var(--tdb-admin-teal) !important;
+  background: var(--secondary) !important;
 }
 
 .tdb-admin-sidebar + div > main.space-y-6 > section:has(h1)::after,
@@ -139,7 +113,7 @@
   bottom: -3rem;
   width: 16rem;
   height: 16rem;
-  background: var(--tdb-admin-orange) !important;
+  background: var(--accent) !important;
 }
 
 .tdb-admin-sidebar + div > main.space-y-6 > section:has(h1) h1,
@@ -147,7 +121,7 @@
 .tdb-admin-sidebar + div > main.space-y-6 > div:has(h1) h1,
 .tdb-admin-sidebar + div > main > .mb-6:has(h1) h1 {
   max-width: 52rem;
-  color: #ffffff !important;
+  color: var(--primary-foreground) !important;
   font-size: clamp(2rem, 4vw, 3.25rem);
   line-height: 1.02;
   letter-spacing: -0.04em;
@@ -159,7 +133,7 @@
 .tdb-admin-sidebar + div > main.space-y-6 > div:has(h1) p,
 .tdb-admin-sidebar + div > main > .mb-6:has(h1) p {
   max-width: 44rem;
-  color: rgba(255, 255, 255, 0.82) !important;
+  color: color-mix(in oklch, var(--primary-foreground) 84%, transparent) !important;
   line-height: 1.85;
 }
 
@@ -182,23 +156,17 @@
 .tdb-admin-sidebar + div > main > .mb-6:has(h1) [role="combobox"] {
   min-height: 2.75rem;
   border-radius: 9999px;
-  border-color: rgba(255, 255, 255, 0.24) !important;
-  background: rgba(255, 255, 255, 0.10) !important;
-  color: #ffffff !important;
+  border-color: color-mix(in oklch, var(--primary-foreground) 24%, transparent) !important;
+  background: color-mix(in oklch, var(--primary-foreground) 10%, transparent) !important;
+  color: var(--primary-foreground) !important;
   font-weight: 800;
 }
 
 .tdb-admin-sidebar + div > main [data-slot="card"] {
-  border-color: rgba(16, 40, 66, 0.10) !important;
+  border-color: color-mix(in oklch, var(--border) 88%, transparent) !important;
   border-radius: 2rem !important;
-  background: var(--tdb-admin-light-card) !important;
-  box-shadow: 0 22px 58px rgba(16, 40, 66, 0.08) !important;
-}
-
-.dark .tdb-admin-sidebar + div > main [data-slot="card"] {
-  border-color: rgba(91, 191, 186, 0.14) !important;
-  background: var(--tdb-admin-dark-card) !important;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.24) !important;
+  background: color-mix(in oklch, var(--card) 94%, transparent) !important;
+  box-shadow: 0 22px 58px color-mix(in oklch, var(--primary) 10%, transparent) !important;
 }
 
 .tdb-admin-sidebar + div > main [class*="rounded-xl"],
@@ -206,31 +174,18 @@
   box-shadow: none;
 }
 
-.tdb-admin-sidebar + div > main [class*="border-orange-100"] {
-  border-color: rgba(245, 132, 31, 0.22) !important;
-}
-
 .tdb-admin-sidebar + div > main [class*="border-primary/20"] {
-  border-color: rgba(26, 58, 92, 0.18) !important;
+  border-color: color-mix(in oklch, var(--primary) 18%, transparent) !important;
 }
 
 .tdb-admin-sidebar + div > main [class*="bg-muted/30"],
 .tdb-admin-sidebar + div > main [class*="bg-muted/40"] {
-  background: rgba(91, 191, 186, 0.07) !important;
-}
-
-.dark .tdb-admin-sidebar + div > main [class*="bg-muted/30"],
-.dark .tdb-admin-sidebar + div > main [class*="bg-muted/40"] {
-  background: rgba(91, 191, 186, 0.10) !important;
+  background: color-mix(in oklch, var(--muted) 72%, transparent) !important;
 }
 
 .tdb-admin-sidebar + div > main [class*="border-dashed"] {
   border-radius: 2rem;
-  background: rgba(255, 255, 255, 0.72);
-}
-
-.dark .tdb-admin-sidebar + div > main [class*="border-dashed"] {
-  background: rgba(16, 40, 66, 0.58);
+  background: color-mix(in oklch, var(--card) 72%, transparent);
 }
 
 @media (max-width: 767px) {
